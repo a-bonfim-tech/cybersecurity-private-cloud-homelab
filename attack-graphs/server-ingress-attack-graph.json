@@ -1,0 +1,14 @@
+{
+  "graph_name": "Server Ingress & Lateral Movement Analysis",
+  "nodes": [
+    {"id": "node_0", "label": "External Attacker", "type": "Actor", "zone": "WAN"},
+    {"id": "node_1", "label": "Exposed Reverse Proxy / WAF", "type": "Service", "zone": "DMZ"},
+    {"id": "node_2", "label": "Bonfim AI Platform Service", "type": "Workload", "zone": "VLAN_20"},
+    {"id": "node_3", "label": "Internal Core Database", "type": "Asset", "zone": "VLAN_20"}
+  ],
+  "edges": [
+    {"source": "node_0", "target": "node_1", "relation": "EXPLOITS_PUBLIC_APP", "mitre_id": "T1190"},
+    {"source": "node_1", "target": "node_2", "relation": "PIVOTS_TO_INTERNAL_NET", "mitre_id": "T1021"},
+    {"source": "node_2", "target": "node_3", "relation": "ACCESSES_SENSITIVE_DATA", "mitre_id": "T1005"}
+  ]
+}
