@@ -1,0 +1,8 @@
+*.pem
+*.key
+*.pub
+*.pfx
+*.tfvars
+*.tfstate
+secrets/
+.DS_Store
