@@ -7,4 +7,8 @@
 * VLAN 40 (MONITORING): Passive SPAN/TAP Sensors
 
 ## Inter-Zone Controls
-Traffic between VLAN 20 and VLAN 10 is implicitly blocked by default-deny rules.
+
+The intended control is explicit allowlisting over a default-deny inter-zone
+baseline. The complete designed matrix is maintained in
+[`firewall-policy.md`](../governance/firewall-policy.md). Enforcement has not
+been observed or demonstrated by this repository.
