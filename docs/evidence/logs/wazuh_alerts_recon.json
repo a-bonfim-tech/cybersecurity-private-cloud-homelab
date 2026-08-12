@@ -1,18 +1,29 @@
 {
-  "timestamp": "2026-08-12T23:55:00.000+0000",
-  "rule": {
-    "id": "100001",
-    "level": 7,
-    "description": "Unauthorized port scan probe from Cyber Lab (VLAN 30)",
-    "mitre": {
-      "id": [
-        "T1046"
-      ]
+  "classification": "TEST_VECTOR_SPECIFICATION",
+  "scenario_id": "SCN-RECON-001",
+  "description": "Synthetic Suricata EVE input expected to match Wazuh rule 100010",
+  "execution_claimed": false,
+  "input_event": {
+    "event_type": "alert",
+    "src_ip": "10.10.30.5",
+    "dest_ip": "10.10.20.15",
+    "proto": "TCP",
+    "alert": {
+      "signature_id": 1000001,
+      "signature": "HOMELAB VLAN30 repeated SYN reconnaissance toward VLAN20",
+      "category": "Attempted Information Leak",
+      "severity": 2
     }
   },
-  "data": {
-    "srcip": "10.10.30.5",
-    "dstip": "10.10.20.15",
-    "action": "BLOCKED_BY_DEFAULT_DENY"
-  }
+  "expected_result": {
+    "wazuh_rule_id": "100010",
+    "wazuh_level": 7,
+    "mitre_technique_id": "T1046"
+  },
+  "actual_result": null,
+  "verification_status": "PENDING_EXECUTION",
+  "limitations": [
+    "This file is hand-authored test input, not an emitted Wazuh alert.",
+    "Wazuh decoder and rule execution have not been demonstrated."
+  ]
 }

@@ -1,0 +1,48 @@
+{
+  "manifest_version": "1.0.0",
+  "scenario_id": "SCN-RECON-001",
+  "scenario_name": "Synthetic VLAN30 to VLAN20 SYN reconnaissance",
+  "synthetic_only": true,
+  "execution_status": "PENDING_EXECUTION",
+  "control_effectiveness_claimed": false,
+  "evidence_items": [
+    {
+      "evidence_id": "PCAP-001",
+      "classification": "TEST_VECTOR_SPECIFICATION",
+      "generator": "hand-constructed synthetic packet",
+      "tool": "capinfos and tshark",
+      "tool_version": "Wireshark 4.6.7",
+      "command": "capinfos docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap; tshark -r docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap -T fields -e frame.number -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e tcp.flags",
+      "timestamp": "2026-08-12T23:49:07Z",
+      "environment": "local macOS validation",
+      "input_path": "docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap",
+      "input_sha256": "6d08f246f9ff5572f5872e21aa62797edee31840c6c694ac950a191d428d90b7",
+      "output_path": null,
+      "output_sha256": null,
+      "rule_id": "1000001",
+      "expected_result": "At least eight qualifying SYN packets in ten seconds trigger the Suricata rule",
+      "actual_result": "One intact TCP SYN packet from 10.10.30.5:54321 to 10.10.20.15:22 was parsed",
+      "verification_status": "VALIDATED_FILE_STRUCTURE",
+      "limitations": "A one-packet test vector cannot cross the detection threshold and does not prove a scan, alert or firewall action."
+    },
+    {
+      "evidence_id": "LOG-001",
+      "classification": "TEST_VECTOR_SPECIFICATION",
+      "generator": "hand-authored JSON",
+      "tool": "python json parser",
+      "tool_version": null,
+      "command": "python3 -m json.tool docs/evidence/logs/wazuh_alerts_recon.json",
+      "timestamp": null,
+      "environment": "repository specification",
+      "input_path": "docs/evidence/logs/wazuh_alerts_recon.json",
+      "input_sha256": "89f3c77bd1baa986b6ec259f5faf7700af2777da3d9f9cde622acb26f88e779d",
+      "output_path": null,
+      "output_sha256": null,
+      "rule_id": "100010",
+      "expected_result": "Wazuh rule 100010 matches a Suricata EVE alert for SID 1000001",
+      "actual_result": null,
+      "verification_status": "PENDING_EXECUTION",
+      "limitations": "This is not Wazuh-emitted output and does not demonstrate decoder, rule or manager operation."
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 <!-- Custom Wazuh SIEM Detection Rules for Homelab -->
-<group name="local,syslog,sshd,network_security">
+<group name="local,syslog,sshd,network_security,">
 
   <rule id="100001" level="10">
     <if_sid>5716</if_sid>
@@ -16,6 +16,18 @@
     <description>CRITICAL: High Frequency SSH Brute-Force / Reconnaissance Attack from VLAN 30</description>
     <mitre>
       <id>T1110.001</id>
+    </mitre>
+  </rule>
+
+  <!-- Correlates a Suricata EVE JSON event for SID 1000001. This rule is
+       syntax-validated only; the repository does not claim Wazuh execution. -->
+  <rule id="100010" level="7">
+    <if_group>json</if_group>
+    <field name="event_type">^alert$</field>
+    <field name="alert.signature_id">^1000001$</field>
+    <description>Suricata detected repeated synthetic VLAN30 SYN reconnaissance toward VLAN20</description>
+    <mitre>
+      <id>T1046</id>
     </mitre>
   </rule>
 
