@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-08-12T23:55:00.000+0000",
+  "rule": {
+    "id": "100001",
+    "level": 7,
+    "description": "Unauthorized port scan probe from Cyber Lab (VLAN 30)",
+    "mitre": {
+      "id": [
+        "T1046"
+      ]
+    }
+  },
+  "data": {
+    "srcip": "10.10.30.5",
+    "dstip": "10.10.20.15",
+    "action": "BLOCKED_BY_DEFAULT_DENY"
+  }
+}

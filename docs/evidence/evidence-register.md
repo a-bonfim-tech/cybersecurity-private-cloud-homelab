@@ -1,5 +1,6 @@
 # Security Evidence Register
 
-## Collected Evidence Log
-* **RUN-001:**  - Captured on SPAN Port (VLAN 40).
-* **LOG-001:**  - Verified SIEM alert generation.
+| ID | Type | Path | Description |
+| :--- | :--- | :--- | :--- |
+| PCAP-001 | Packet Capture | docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap | Raw capture of TCP SYN probe blocked by firewall. |
+| LOG-001 | SIEM Log | docs/evidence/logs/wazuh_alerts_recon.json | Wazuh alert log mapped to MITRE T1046. |
