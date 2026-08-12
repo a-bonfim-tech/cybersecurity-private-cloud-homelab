@@ -1,0 +1,2 @@
+# Custom Suricata Rules
+alert tcp $CYBERLAB_NET any -> $SERVERS_NET [22,80,443] (msg:"SECURITY LAB - Internal Reconnaissance Attempt"; sid:1000001; rev:1;)
