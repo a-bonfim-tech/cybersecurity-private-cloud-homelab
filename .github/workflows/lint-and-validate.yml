@@ -1,4 +1,4 @@
-name: Repository Lint & Validation
+name: Repository Validation Pipeline
 
 on:
   push:
@@ -7,10 +7,27 @@ on:
     branches: [ main ]
 
 jobs:
-  validate:
+  validate-all:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Validate Terraform Syntax
+        run: |
+          cd iac/terraform
+          terraform init -backend=false
+          terraform validate
+
       - name: Validate JSON Files
-        run: python3 -m json.tool attack-graphs/server-ingress-attack-graph.json > /dev/null
+        run: |
+          python3 -m json.tool attack-graphs/server-ingress-attack-graph.json > /dev/null
+          python3 -m json.tool docs/evidence/logs/wazuh_alerts_recon.json > /dev/null
+
+      - name: Validate Wazuh XML Syntax
+        run: |
+          sudo apt-get update && sudo apt-get install -y libxml2-utils
+          xmllint --noout detections/wazuh/local_rules.xml

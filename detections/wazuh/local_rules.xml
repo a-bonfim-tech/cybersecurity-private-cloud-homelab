@@ -1,8 +1,22 @@
-<--evaluate-encryption-at-rest Custom Wazuh SIEM Rules -->
-<group name="local,syslog,sshd">
-  <rule id="100001" level="7">
+<!-- Custom Wazuh SIEM Detection Rules for Homelab -->
+<group name="local,syslog,sshd,network_security">
+
+  <rule id="100001" level="10">
     <if_sid>5716</if_sid>
-    <match>Failed SSH connection from CyberLab</match>
-    <description>Possible unauthorized SSH brute-force from VLAN 30</description>
+    <srcip>10.10.30.0/24</srcip>
+    <description>SECURITY ALERT: SSH Authentication Failed from Cyber Lab Zone (VLAN 30)</description>
+    <mitre>
+      <id>T1110</id>
+      <id>T1021.004</id>
+    </mitre>
   </rule>
+
+  <rule id="100002" level="12" frequency="5" timeframe="60">
+    <if_matched_sid>100001</if_matched_sid>
+    <description>CRITICAL: High Frequency SSH Brute-Force / Reconnaissance Attack from VLAN 30</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+  </rule>
+
 </group>
