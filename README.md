@@ -6,6 +6,10 @@
 - Security Model: Zero Trust (docs/governance/firewall-policy.md)
 - Compliance: BSI / ISO27001 (docs/governance/bsi-iso-mapping.md)
 
+<p align="center">
+  <img src="docs/architecture/hero-architecture.png" alt="Zero Trust Architecture Core & Attack Graph Engine" width="100%" />
+</p>
+
 ---
 
 ## Executive Summary
@@ -18,13 +22,13 @@ Designed under **Defense-in-Depth** and **Zero Trust** principles, the environme
 
 ## Key Artifacts & Portfolio Proofs
 
-* **Architecture & ADRs:** [](docs/adr/ADR-001-federated-architecture.md) & [](docs/architecture/trust-boundaries.md)
-* **Federated Integration:** [](docs/architecture/federated-integration.md)
-* **Governance & Frameworks:** [](docs/governance/bsi-iso-mapping.md) & [](docs/governance/firewall-policy.md)
-* **Detection Engineering:** [](detections/suricata/local.rules) & [](detections/wazuh/local_rules.xml)
-* **Threat Modeling & Graphs:** [](attack-graphs/server-ingress-attack-graph.json) & [](docs/threat-model/threat-model.md)
-* **Purple-Team Runbook:** [](docs/evidence/purple-team-runs/RUNBOOK-001-recon-and-pivoting.md)
-* **Infrastructure-as-Code:** [](iac/terraform/main.tf)
+* **Architecture & ADRs:** [`ADR-001`](docs/adr/ADR-001-federated-architecture.md) & [`trust-boundaries.md`](docs/architecture/trust-boundaries.md)
+* **Federated Integration:** [`federated-integration.md`](docs/architecture/federated-integration.md)
+* **Governance & Frameworks:** [`bsi-iso-mapping.md`](docs/governance/bsi-iso-mapping.md) & [`firewall-policy.md`](docs/governance/firewall-policy.md)
+* **Detection Engineering:** [`local.rules`](detections/suricata/local.rules) & [`local_rules.xml`](detections/wazuh/local_rules.xml)
+* **Threat Modeling & Graphs:** [`server-ingress-attack-graph.json`](attack-graphs/server-ingress-attack-graph.json) & [`threat-model.md`](docs/threat-model/threat-model.md)
+* **Purple-Team Runbook:** [`RUNBOOK-001`](docs/evidence/purple-team-runs/RUNBOOK-001-recon-and-pivoting.md)
+* **Infrastructure-as-Code:** [`main.tf`](iac/terraform/main.tf)
 
 ---
 
