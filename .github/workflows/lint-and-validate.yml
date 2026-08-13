@@ -61,6 +61,12 @@ jobs:
               if path and expected:
                   actual = hashlib.sha256(Path(path).read_bytes()).hexdigest()
                   assert actual == expected, f"hash mismatch for {path}"
+              rule_hash = item.get("rule_sha256")
+              if rule_hash:
+                  actual_rule_hash = hashlib.sha256(
+                      Path("detections/wazuh/local_rules.xml").read_bytes()
+                  ).hexdigest()
+                  assert actual_rule_hash == rule_hash, "Wazuh rule hash mismatch"
           assert manifest["synthetic_only"] is True
           assert manifest["control_effectiveness_claimed"] is False
           PY
@@ -81,3 +87,16 @@ jobs:
 
       - name: Execute Suricata configuration and offline regression tests
         run: tools/run_suricata_tests.sh
+
+  validate-wazuh-rule:
+    needs: validate-all
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Execute isolated Wazuh-native rule tests
+        env:
+          WAZUH_IMAGE: wazuh/wazuh-manager@sha256:c364ef100ba40d501537b1668a5a72bba4c4fbcf39bbef6a02123ff221fc40d0
+        run: tools/run_wazuh_tests.sh
