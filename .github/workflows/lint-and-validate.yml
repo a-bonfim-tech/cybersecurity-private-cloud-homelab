@@ -2,32 +2,68 @@ name: Repository Validation Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - "hardening/**"
   pull_request:
     branches: [ main ]
+
+permissions:
+  contents: read
 
 jobs:
   validate-all:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
 
-      - name: Validate Terraform Syntax
+      - name: Validate Terraform formatting and configuration
         run: |
-          cd iac/terraform
-          terraform init -backend=false
-          terraform validate
+          terraform -chdir=iac/terraform fmt -check -diff
+          terraform -chdir=iac/terraform init -backend=false -input=false
+          terraform -chdir=iac/terraform validate
 
       - name: Validate JSON Files
         run: |
           python3 -m json.tool attack-graphs/server-ingress-attack-graph.json > /dev/null
           python3 -m json.tool docs/evidence/logs/wazuh_alerts_recon.json > /dev/null
+          python3 -m json.tool docs/evidence/evidence-manifest.json > /dev/null
+
+      - name: Verify evidence hashes and classifications
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path("docs/evidence/evidence-manifest.json").read_text())
+          allowed = {
+              "TEST_VECTOR_SPECIFICATION",
+              "EXECUTED_SYNTHETIC_TEST_EVIDENCE",
+          }
+          for item in manifest["evidence_items"]:
+              assert item["classification"] in allowed
+              path = item.get("input_path")
+              expected = item.get("input_sha256")
+              if path and expected:
+                  actual = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                  assert actual == expected, f"hash mismatch for {path}"
+          assert manifest["synthetic_only"] is True
+          assert manifest["control_effectiveness_claimed"] is False
+          PY
 
       - name: Validate Wazuh XML Syntax
         run: |
           sudo apt-get update && sudo apt-get install -y libxml2-utils
           xmllint --noout detections/wazuh/local_rules.xml
+
+      - name: Validate PCAP integrity and synthetic addresses
+        run: |
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y tshark
+          capinfos -c -s -H docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap
+          test "$(tshark -r docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap -Y 'ip.src == 10.10.30.5 && ip.dst == 10.10.20.15 && tcp.flags.syn == 1 && tcp.flags.ack == 0' -T fields -e frame.number | wc -l)" -eq 1
