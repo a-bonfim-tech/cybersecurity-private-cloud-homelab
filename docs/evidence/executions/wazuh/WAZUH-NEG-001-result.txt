@@ -1,0 +1,8 @@
+Starting wazuh-logtest v4.14.7
+
+Input change: alert.signature_id=1000999
+Decoder: json
+Final rule id: 86601
+Final rule level: 3
+Rule 100010 matched: false
+Result: bounded negative control passed

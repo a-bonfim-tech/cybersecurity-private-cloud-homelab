@@ -10,15 +10,16 @@ directed toward the controlled VLAN 20 test host.
 - Synthetic lab networks only: `10.10.30.0/24` and `10.10.20.0/24`.
 - No Internet, third-party, production or personal data targets.
 - Obtain the lab owner's confirmation before enabling the temporary test path.
-- The PCAP corpus is synthetic. Suricata offline execution is retained as
-  `EXECUTED_SYNTHETIC_TEST_EVIDENCE`; firewall and Wazuh execution remain pending.
+- The PCAP corpus is synthetic. Suricata offline execution and Wazuh-native
+  rule testing are retained as `EXECUTED_SYNTHETIC_TEST_EVIDENCE`; firewall
+  enforcement remains pending.
 
 ## Preconditions
 
 1. VLAN 30 source and VLAN 20 target are controlled lab assets.
 2. Suricata is installed and SID `1000001` passes configuration validation.
 3. A capture interface observes the test path.
-4. Wazuh has a JSON decoder path for Suricata EVE data and local rule `100010`.
+4. Wazuh `4.14.7` has the JSON decoder and stock Suricata parent rule `86601`.
 5. Exact tool versions and UTC start time are recorded before execution.
 
 ## Live lab execution - pending
@@ -74,13 +75,41 @@ tools/run_suricata_tests.sh
 
 ## Telemetry & Detection Verification
 
+## Executed Wazuh-native rule evidence
+
+The actual retained `SURICATA-EXEC-001` alert was canonicalized to one JSON
+line without semantic changes and passed to Wazuh `4.14.7`:
+
+```bash
+tools/run_wazuh_tests.sh
+```
+
+Observed native results:
+
+- decoder: `json`;
+- matched rule: `100010`;
+- level: `7`;
+- MITRE technique: `T1046`;
+- assertion `100010:7:json`: exit code `0`, `Unit test OK`;
+- two bounded negative controls: zero matches for rule `100010`.
+
+The initial native run proved that `<if_group>json</if_group>` did not follow
+the Wazuh Suricata rule chain. Rule `100010` was minimally corrected to inherit
+from stock rule `86601` using `<if_sid>86601</if_sid>`, then all tests were
+repeated successfully.
+
+This proves preprocessing, JSON decoding and rule evaluation. It does not
+prove an operating Wazuh manager ingestion pipeline, alert persistence,
+firewall enforcement or control effectiveness.
+
+## Evidence state
+
 The evidence manifest records the observed output:
 
 1. Suricata configuration result and exact version.
 2. Positive and negative PCAP hashes.
 3. minimized Suricata alert and matching SID;
-4. Wazuh status `BLOCKED_BY_TOOLING` because neither `wazuh-logtest` nor an
-   operational local Docker daemon was available;
+4. Wazuh-native positive assertion and bounded negative controls;
 5. Firewall log with the matching five-tuple, if enforcement is evaluated.
 
 An IDS alert does not prove that the firewall blocked the packet.
@@ -103,5 +132,12 @@ An IDS alert does not prove that the firewall blocked the packet.
 ## Independent reproduction gate
 
 CI regenerates the deterministic corpus and repeats Suricata configuration,
-positive and negative tests. Wazuh-native execution and firewall enforcement
-remain separate pending gates.
+positive and negative tests. Wazuh-native CI reproduction is performed by a
+separate isolated container gate. Firewall enforcement remains pending.
+
+```text
+SURICATA_OFFLINE_EXECUTION=EXECUTED
+WAZUH_LOGTEST_EXECUTION=EXECUTED
+WAZUH_MANAGER_OPERATION=PENDING
+FIREWALL_ENFORCEMENT=PENDING
+```

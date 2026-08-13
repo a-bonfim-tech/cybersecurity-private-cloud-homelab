@@ -1,0 +1,1 @@
+{"timestamp":"2023-11-14T23:13:20.800000+0100","pcap_cnt":9,"event_type":"alert","src_ip":"10.10.30.5","src_port":40008,"dest_ip":"10.10.20.15","dest_port":22,"proto":"TCP","pkt_src":"wire/pcap","alert":{"action":"allowed","gid":1,"signature_id":1000999,"rev":1,"signature":"Synthetic non-matching signature","category":"Test","severity":2},"direction":"to_server"}

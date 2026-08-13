@@ -29,7 +29,7 @@ including the **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-
 | Network segmentation | DESIGNED | VLANs and flows are specified; enforcement is not observed here. |
 | Proxmox infrastructure | CONFIGURED | Terraform is present; no `terraform apply` evidence is claimed. |
 | Suricata reconnaissance detection | TESTED | Suricata 8.0.6 emitted one alert for the positive PCAP and zero for two bounded negative controls. |
-| Wazuh correlation | BLOCKED_BY_TOOLING | Rule and test vector exist; Wazuh-native execution remains pending. |
+| Wazuh correlation | TESTED | Wazuh 4.14.7 `wazuh-logtest` matched rule 100010 and passed two bounded negative controls; manager operation is unproven. |
 | BSI / ISO/IEC alignment | MAPPED | Mapping is not certification or formal compliance. |
 
 - `COMPLIANCE_CERTIFIED=false`

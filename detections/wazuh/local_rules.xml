@@ -19,10 +19,10 @@
     </mitre>
   </rule>
 
-  <!-- Correlates a Suricata EVE JSON event for SID 1000001. This rule is
-       syntax-validated only; the repository does not claim Wazuh execution. -->
+  <!-- Correlates a Suricata EVE JSON event for SID 1000001. Native logtest
+       evidence is retained; operating-manager effectiveness is not claimed. -->
   <rule id="100010" level="7">
-    <if_group>json</if_group>
+    <if_sid>86601</if_sid>
     <field name="event_type">^alert$</field>
     <field name="alert.signature_id">^1000001$</field>
     <description>Suricata detected repeated synthetic VLAN30 SYN reconnaissance toward VLAN20</description>

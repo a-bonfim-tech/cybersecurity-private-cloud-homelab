@@ -8,6 +8,9 @@
 | PCAP-NEG-001 | TEST_VECTOR_SPECIFICATION | Packet capture | `docs/evidence/pcaps/recon_vlan30_to_vlan20_negative_below_threshold.pcap` | Seven deterministic SYN packets below the threshold. | Generation and packet fields validated |
 | PCAP-NEG-002 | TEST_VECTOR_SPECIFICATION | Packet capture | `docs/evidence/pcaps/recon_vlan30_to_vlan20_negative_ack.pcap` | Eight deterministic ACK packets outside the SYN rule. | Generation and packet fields validated |
 | SURICATA-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Offline rule execution | `docs/evidence/executions/suricata/` | Suricata 8.0.6 configuration, positive replay and two negative controls. | One positive SID 1000001 alert; zero negative alerts |
+| WAZUH-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native rule test | `docs/evidence/executions/wazuh/` | Actual Suricata alert decoded and evaluated by Wazuh 4.14.7. | Rule 100010 level 7 and T1046 matched |
+| WAZUH-NEG-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native negative test | `docs/evidence/executions/wazuh/` | Different signature ID. | Rule 100010 did not match |
+| WAZUH-NEG-002 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native negative test | `docs/evidence/executions/wazuh/` | Non-alert event type. | Rule 100010 did not match |
 
 The machine-readable source of truth is
 [`evidence-manifest.json`](evidence-manifest.json). No item in this register is

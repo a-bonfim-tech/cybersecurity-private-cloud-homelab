@@ -1,0 +1,20 @@
+Starting wazuh-logtest v4.14.7
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	alert.signature_id: '1000001'
+	alert.signature: 'HOMELAB VLAN30 repeated SYN reconnaissance toward VLAN20'
+	dest_ip: '10.10.20.15'
+	event_type: 'alert'
+	src_ip: '10.10.30.5'
+
+**Phase 3: Completed filtering (rules).
+	id: '100010'
+	level: '7'
+	description: 'Suricata detected repeated synthetic VLAN30 SYN reconnaissance toward VLAN20'
+	mitre.id: '['T1046']'
+	mitre.tactic: '['Discovery']'
+	mitre.technique: '['Network Service Discovery']'
+**Alert to be generated.
+
+Unit test OK
