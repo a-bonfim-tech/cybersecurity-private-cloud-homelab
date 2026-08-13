@@ -1,0 +1,10 @@
+table inet homelab_filter {
+	chain forward { # handle 1
+		type filter hook forward priority filter; policy drop;
+		ct state established,related counter packets 0 bytes 0 accept comment "STATEFUL-RETURN" # handle 2
+		ip saddr 10.10.10.0/24 ip daddr 10.10.20.0/24 tcp dport 22 counter packets 0 bytes 0 accept comment "FW-001" # handle 3
+		ip saddr 10.10.20.0/24 ip daddr 10.10.40.0/24 tcp dport 1514 counter packets 0 bytes 0 accept comment "FW-002" # handle 4
+		ip saddr 10.10.30.0/24 ip daddr 10.10.20.0/24 tcp dport { 22, 80, 443, 8080 } counter packets 0 bytes 0 drop comment "FW-004" # handle 6
+		counter packets 0 bytes 0 drop comment "FW-005" # handle 7
+	}
+}
