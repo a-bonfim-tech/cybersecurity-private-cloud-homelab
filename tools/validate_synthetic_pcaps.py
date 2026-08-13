@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PCAP_DIR = ROOT / "docs" / "evidence" / "pcaps"
 EXPECTED = {
-    "recon_vlan30_to_vlan20_positive_scan.pcap": {"packets": 8, "flags": 0x02},
+    "recon_vlan30_to_vlan20_positive_scan.pcap": {"packets": 9, "flags": 0x02},
     "recon_vlan30_to_vlan20_negative_below_threshold.pcap": {"packets": 7, "flags": 0x02},
     "recon_vlan30_to_vlan20_negative_ack.pcap": {"packets": 8, "flags": 0x10},
 }

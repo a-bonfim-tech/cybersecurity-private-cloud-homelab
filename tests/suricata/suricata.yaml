@@ -1,0 +1,34 @@
+%YAML 1.1
+---
+
+vars:
+  address-groups:
+    HOME_NET: "[10.10.20.0/24,10.10.30.0/24]"
+    EXTERNAL_NET: "any"
+
+default-log-dir: ./suricata-output
+classification-file: tests/suricata/classification.config
+
+outputs:
+  - eve-log:
+      enabled: yes
+      filetype: regular
+      filename: eve.json
+      types:
+        - alert
+  - stats:
+      enabled: no
+
+logging:
+  default-log-level: notice
+  outputs:
+    - console:
+        enabled: yes
+
+app-layer:
+  protocols:
+    http:
+      enabled: yes
+
+detect:
+  profile: medium

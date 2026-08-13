@@ -103,7 +103,7 @@ def packet_series(count: int, flags: int) -> list[tuple[int, int, bytes]]:
 def main() -> None:
     PCAP_DIR.mkdir(parents=True, exist_ok=True)
     outputs = {
-        "recon_vlan30_to_vlan20_positive_scan.pcap": packet_series(8, 0x02),
+        "recon_vlan30_to_vlan20_positive_scan.pcap": packet_series(9, 0x02),
         "recon_vlan30_to_vlan20_negative_below_threshold.pcap": packet_series(7, 0x02),
         "recon_vlan30_to_vlan20_negative_ack.pcap": packet_series(8, 0x10),
     }

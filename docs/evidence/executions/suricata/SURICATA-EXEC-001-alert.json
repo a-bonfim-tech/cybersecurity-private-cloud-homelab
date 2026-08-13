@@ -1,0 +1,27 @@
+{
+  "timestamp": "2023-11-14T23:13:20.800000+0100",
+  "pcap_cnt": 9,
+  "event_type": "alert",
+  "src_ip": "10.10.30.5",
+  "src_port": 40008,
+  "dest_ip": "10.10.20.15",
+  "dest_port": 22,
+  "proto": "TCP",
+  "pkt_src": "wire/pcap",
+  "alert": {
+    "action": "allowed",
+    "gid": 1,
+    "signature_id": 1000001,
+    "rev": 4,
+    "signature": "HOMELAB VLAN30 repeated SYN reconnaissance toward VLAN20",
+    "category": "Attempted Information Leak",
+    "severity": 2,
+    "metadata": {
+      "attack_target": ["Server"],
+      "created_at": ["2026_08_13"],
+      "mitre_tactic_id": ["TA0043"],
+      "mitre_technique_id": ["T1046"]
+    }
+  },
+  "direction": "to_server"
+}

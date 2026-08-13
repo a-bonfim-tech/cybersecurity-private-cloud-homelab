@@ -1,7 +1,7 @@
 # Custom Suricata IDS rules - synthetic homelab only.
 #
-# SID 1000001 detects a burst of TCP SYN packets from VLAN 30 to selected
+# SID 1000001 alerts after more than eight TCP SYN packets from VLAN 30 to selected
 # service ports in VLAN 20. It does not prove a multi-port scan by itself and
 # does not detect UDP, ACK, FIN, NULL or distributed scans. The threshold is a
 # lab baseline and must be tuned against observed benign traffic.
-alert tcp 10.10.30.0/24 any -> 10.10.20.0/24 [22,80,443,8080] (msg:"HOMELAB VLAN30 repeated SYN reconnaissance toward VLAN20"; flow:stateless; flags:S,CE; detection_filter:track by_src,count 8,seconds 10; classtype:attempted-recon; sid:1000001; rev:3; metadata:created_at 2026_08_13,attack_target Server,mitre_tactic_id TA0043,mitre_technique_id T1046;)
+alert tcp 10.10.30.0/24 any -> 10.10.20.0/24 [22,80,443,8080] (msg:"HOMELAB VLAN30 repeated SYN reconnaissance toward VLAN20"; flow:to_server,stateless; flags:S,CE; detection_filter:track by_src,count 8,seconds 10; classtype:attempted-recon; sid:1000001; rev:4; metadata:created_at 2026_08_13,attack_target Server,mitre_tactic_id TA0043,mitre_technique_id T1046;)
