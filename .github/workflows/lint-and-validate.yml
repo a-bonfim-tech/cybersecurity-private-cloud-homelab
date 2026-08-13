@@ -49,10 +49,10 @@ jobs:
           python3 tools/validate_synthetic_pcaps.py > /dev/null
           git diff --exit-code -- docs/evidence/pcaps/
 
-      - name: Verify evidence hashes and classifications
+      - name: Verify evidence integrity
         run: |
+          python3 tools/validate_evidence_integrity.py
           python3 - <<'PY'
-          import hashlib
           import json
           from pathlib import Path
 
@@ -63,17 +63,6 @@ jobs:
           }
           for item in manifest["evidence_items"]:
               assert item["classification"] in allowed
-              path = item.get("input_path")
-              expected = item.get("input_sha256")
-              if path and expected:
-                  actual = hashlib.sha256(Path(path).read_bytes()).hexdigest()
-                  assert actual == expected, f"hash mismatch for {path}"
-              rule_hash = item.get("rule_sha256")
-              if rule_hash:
-                  actual_rule_hash = hashlib.sha256(
-                      Path("detections/wazuh/local_rules.xml").read_bytes()
-                  ).hexdigest()
-                  assert actual_rule_hash == rule_hash, "Wazuh rule hash mismatch"
           assert manifest["synthetic_only"] is True
           assert manifest["control_effectiveness_claimed"] is False
           PY
