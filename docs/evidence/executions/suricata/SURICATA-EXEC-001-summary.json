@@ -25,6 +25,6 @@
   "limitations": [
     "Offline Suricata replay does not prove firewall enforcement.",
     "Two bounded negative controls do not establish a general false-positive rate.",
-    "Wazuh-native rule execution was blocked by unavailable tooling."
+    "The resulting alert was later evaluated successfully by WAZUH-EXEC-001 using native wazuh-logtest; this does not prove operational Wazuh Manager ingestion, persistence, an alerting pipeline or a unified live packet path."
   ]
 }

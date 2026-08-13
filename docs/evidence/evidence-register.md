@@ -11,10 +11,18 @@
 | WAZUH-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native rule test | `docs/evidence/executions/wazuh/` | Actual Suricata alert decoded and evaluated by Wazuh 4.14.7. | Rule 100010 level 7 and T1046 matched |
 | WAZUH-NEG-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native negative test | `docs/evidence/executions/wazuh/` | Different signature ID. | Rule 100010 did not match |
 | WAZUH-NEG-002 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native negative test | `docs/evidence/executions/wazuh/` | Non-alert event type. | Rule 100010 did not match |
+| FW-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference policy enforcement | `docs/evidence/executions/firewall/` | TRUSTED-to-SERVERS SSH allow in the isolated nftables harness. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; connection and FW-001 counter passed |
+| FW-EXEC-002 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference policy enforcement | `docs/evidence/executions/firewall/` | SERVERS-to-MONITORING TCP/1514 allow in the isolated nftables harness. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; connection and FW-002 counter passed |
+| FW-EXEC-003 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference policy enforcement | `docs/evidence/executions/firewall/` | CYBER_LAB-to-SERVERS SSH explicit deny in the isolated nftables harness. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; denial and FW-004 counter passed |
+| FW-EXEC-004 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference policy enforcement | `docs/evidence/executions/firewall/` | CYBER_LAB-to-SERVERS HTTPS explicit deny in the isolated nftables harness. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; denial and FW-004 counter passed |
+| FW-EXEC-005 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference policy enforcement | `docs/evidence/executions/firewall/` | TRUSTED-to-MONITORING unlisted-port default deny in the isolated nftables harness. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; denial and FW-005 counter passed |
+| FW-EXEC-006 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference policy enforcement | `docs/evidence/executions/firewall/` | SERVERS-to-TRUSTED unlisted-port default deny in the isolated nftables harness. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; denial and FW-005 counter passed |
+| FW-NEG-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference negative test | `docs/evidence/executions/firewall/` | TRUSTED-to-SERVERS TCP/23 verifies allow-rule port scoping. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; denial and FW-005 counter passed |
 | PEER-TRUSTED-NET-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Guest network persistence | `docs/evidence/executions/peer-trusted-network/` | Corrected Netplan source and runtime state for the synthetic VLAN 10 guest. | Generate/apply, immediate state, controlled reboot, post-reboot persistence and human login passed |
 
 The machine-readable source of truth is
 [`evidence-manifest.json`](evidence-manifest.json). No item in this register is
 classified as operating control-effectiveness evidence. The peer-trusted item
 is guest-configuration evidence, not pfSense or inter-zone enforcement
-evidence.
+evidence. The firewall items are reference nftables policy-enforcement
+evidence, not native pfSense enforcement.
