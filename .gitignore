@@ -1,8 +1,16 @@
+# Terraform working data and local credentials
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+crash.*.log
+
+# Local credentials and workstation files
 *.pem
 *.key
 *.pub
 *.pfx
-*.tfvars
-*.tfstate
 secrets/
 .DS_Store

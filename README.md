@@ -1,22 +1,42 @@
 # Cybersecurity Private Cloud Homelab
 
-> **Enterprise-grade, Zero Trust Security Homelab & Detection Engineering Environment.**
+> Evidence-oriented design for a segmented private-cloud security lab and its
+> synthetic detection-engineering scenarios.
 
-- Architecture: Federated (docs/adr/ADR-001-federated-architecture.md)
-- Security Model: Zero Trust (docs/governance/firewall-policy.md)
-- Compliance: BSI / ISO27001 (docs/governance/bsi-iso-mapping.md)
-
-<p align="center">
-  <img src="docs/architecture/hero-architecture.png" alt="Zero Trust Architecture Core & Attack Graph Engine" width="100%" />
-</p>
+- Architecture: [federated design](docs/adr/ADR-001-federated-architecture.md)
+- Security model: [default-deny policy specification](docs/governance/firewall-policy.md)
+- Governance: [BSI and ISO/IEC control mapping](docs/governance/bsi-iso-mapping.md)
 
 ---
 
 ## Executive Summary
 
-This repository contains the architectural definition, declarative infrastructure-as-code (IaC), governance policies, detection engineering artifacts, compliance mappings, and evidence matrices of the **Cybersecurity Private Cloud Homelab**.
+This repository contains the architectural definition, declarative
+infrastructure-as-code (IaC), governance policies, detection artifacts and
+evidence specifications for the **Cybersecurity Private Cloud Homelab**.
 
-Designed under **Defense-in-Depth** and **Zero Trust** principles, the environment provides a segmented private cloud infrastructure (L2/L3 VLANs), monitored passively and actively by IDS/IPS sensors (Suricata) and SIEM (Wazuh). It serves as the secure hosting and monitoring layer for federated workloads, including the **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-platform)**.
+The design applies defense-in-depth and Zero Trust principles to four proposed
+L2/L3 VLANs. Terraform resources and detection rules are **configured** and
+syntax-validated where the required tooling is available. The default-deny
+segmentation policy is reproducibly tested in an isolated nftables reference
+harness using synthetic four-zone traffic. The evidence validates policy
+behavior, not pfSense or Proxmox deployment. The repository does not demonstrate
+an applied Proxmox deployment or operating control effectiveness. It is intended to host federated workloads,
+including the **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-platform)**.
+
+## Evidence Status
+
+| Capability | Current state | Evidence boundary |
+| :--- | :--- | :--- |
+| Network segmentation | TESTED_IN_REFERENCE_HARNESS | Seven synthetic flows validate routed allow, explicit-deny, default-deny and port-scoping behavior in nftables; pfSense and Proxmox deployment remain unproven. |
+| Peer-trusted guest network | PERSISTENCE_TESTED | The synthetic VLAN 10 guest retained `10.10.10.10/24`, no default route and no DNS across a controlled reboot; this is not pfSense or inter-zone enforcement evidence. |
+| Proxmox infrastructure | CONFIGURED | Terraform is present; no `terraform apply` evidence is claimed. |
+| Suricata reconnaissance detection | TESTED | Suricata 8.0.6 emitted one alert for the positive PCAP and zero for two bounded negative controls. |
+| Wazuh correlation | TESTED | Wazuh 4.14.7 `wazuh-logtest` matched rule 100010 and passed two bounded negative controls; manager operation is unproven. |
+| BSI / ISO/IEC alignment | MAPPED | Mapping is not certification or formal compliance. |
+
+- `COMPLIANCE_CERTIFIED=false`
+- `EXTERNAL_AUDIT_PERFORMED=false`
 
 ---
 
@@ -24,10 +44,13 @@ Designed under **Defense-in-Depth** and **Zero Trust** principles, the environme
 
 * **Architecture & ADRs:** [`ADR-001`](docs/adr/ADR-001-federated-architecture.md) & [`trust-boundaries.md`](docs/architecture/trust-boundaries.md)
 * **Federated Integration:** [`federated-integration.md`](docs/architecture/federated-integration.md)
-* **Governance & Frameworks:** [`bsi-iso-mapping.md`](docs/governance/bsi-iso-mapping.md) & [`firewall-policy.md`](docs/governance/firewall-policy.md)
+* **Governance & Framework Mapping:** [`bsi-iso-mapping.md`](docs/governance/bsi-iso-mapping.md) & [`firewall-policy.md`](docs/governance/firewall-policy.md)
 * **Detection Engineering:** [`local.rules`](detections/suricata/local.rules) & [`local_rules.xml`](detections/wazuh/local_rules.xml)
 * **Threat Modeling & Graphs:** [`server-ingress-attack-graph.json`](attack-graphs/server-ingress-attack-graph.json) & [`threat-model.md`](docs/threat-model/threat-model.md)
 * **Purple-Team Runbook:** [`RUNBOOK-001`](docs/evidence/purple-team-runs/RUNBOOK-001-recon-and-pivoting.md)
+* **Evidence Manifest:** [`evidence-manifest.json`](docs/evidence/evidence-manifest.json)
+* **Firewall Harness:** [`tools/firewall-lab`](tools/firewall-lab) & [executed evidence](docs/evidence/executions/firewall/README.md)
+* **Peer-Trusted Network Gate:** [`RUNBOOK-002`](docs/evidence/purple-team-runs/RUNBOOK-002-peer-trusted-network-persistence.md) & [executed evidence](docs/evidence/executions/peer-trusted-network/README.md)
 * **Infrastructure-as-Code:** [`main.tf`](iac/terraform/main.tf)
 
 ---

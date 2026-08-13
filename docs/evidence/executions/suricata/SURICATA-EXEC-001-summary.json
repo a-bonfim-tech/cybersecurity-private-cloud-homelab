@@ -1,0 +1,30 @@
+{
+  "evidence_id": "SURICATA-EXEC-001",
+  "scenario_id": "SCN-RECON-001",
+  "classification": "EXECUTED_SYNTHETIC_TEST_EVIDENCE",
+  "executed_at": "2026-08-13T01:25:54Z",
+  "environment": "local macOS offline PCAP replay",
+  "tool": "Suricata",
+  "tool_version": "8.0.6 RELEASE",
+  "installation": "Homebrew package suricata 8.0.6",
+  "configuration_command": "suricata -T -l <TEMP_OUTPUT> -c tests/suricata/suricata.yaml -S detections/suricata/local.rules",
+  "positive_command": "suricata -r docs/evidence/pcaps/recon_vlan30_to_vlan20_positive_scan.pcap -l <TEMP_OUTPUT> -c tests/suricata/suricata.yaml -S detections/suricata/local.rules",
+  "negative_commands": [
+    "suricata -r docs/evidence/pcaps/recon_vlan30_to_vlan20_negative_below_threshold.pcap -l <TEMP_OUTPUT> -c tests/suricata/suricata.yaml -S detections/suricata/local.rules",
+    "suricata -r docs/evidence/pcaps/recon_vlan30_to_vlan20_negative_ack.pcap -l <TEMP_OUTPUT> -c tests/suricata/suricata.yaml -S detections/suricata/local.rules"
+  ],
+  "configuration_exit_code": 0,
+  "positive_exit_code": 0,
+  "negative_exit_codes": [0, 0],
+  "observed_sid": 1000001,
+  "positive_alert_count": 1,
+  "negative_alert_counts": [0, 0],
+  "bounded_regression_controls_passed": true,
+  "firewall_enforcement_observed": false,
+  "control_effectiveness_claimed": false,
+  "limitations": [
+    "Offline Suricata replay does not prove firewall enforcement.",
+    "Two bounded negative controls do not establish a general false-positive rate.",
+    "The resulting alert was later evaluated successfully by WAZUH-EXEC-001 using native wazuh-logtest; this does not prove operational Wazuh Manager ingestion, persistence, an alerting pipeline or a unified live packet path."
+  ]
+}
