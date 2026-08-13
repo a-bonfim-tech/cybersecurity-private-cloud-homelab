@@ -33,6 +33,14 @@ jobs:
           python3 -m json.tool attack-graphs/server-ingress-attack-graph.json > /dev/null
           python3 -m json.tool docs/evidence/logs/wazuh_alerts_recon.json > /dev/null
           python3 -m json.tool docs/evidence/evidence-manifest.json > /dev/null
+          python3 -m json.tool docs/evidence/executions/suricata/SURICATA-EXEC-001-alert.json > /dev/null
+          python3 -m json.tool docs/evidence/executions/suricata/SURICATA-EXEC-001-summary.json > /dev/null
+
+      - name: Regenerate deterministic synthetic PCAP corpus
+        run: |
+          python3 tools/generate_synthetic_pcaps.py
+          python3 tools/validate_synthetic_pcaps.py > /dev/null
+          git diff --exit-code -- docs/evidence/pcaps/
 
       - name: Verify evidence hashes and classifications
         run: |
@@ -57,13 +65,19 @@ jobs:
           assert manifest["control_effectiveness_claimed"] is False
           PY
 
-      - name: Validate Wazuh XML Syntax
+      - name: Install bounded validation tooling
         run: |
-          sudo apt-get update && sudo apt-get install -y libxml2-utils
+          sudo apt-get update
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y libxml2-utils suricata tshark
+
+      - name: Validate Wazuh XML syntax
+        run: |
           xmllint --noout detections/wazuh/local_rules.xml
 
       - name: Validate PCAP integrity and synthetic addresses
         run: |
-          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y tshark
           capinfos -c -s -H docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap
           test "$(tshark -r docs/evidence/pcaps/recon_vlan30_to_vlan20.pcap -Y 'ip.src == 10.10.30.5 && ip.dst == 10.10.20.15 && tcp.flags.syn == 1 && tcp.flags.ack == 0' -T fields -e frame.number | wc -l)" -eq 1
+
+      - name: Execute Suricata configuration and offline regression tests
+        run: tools/run_suricata_tests.sh
