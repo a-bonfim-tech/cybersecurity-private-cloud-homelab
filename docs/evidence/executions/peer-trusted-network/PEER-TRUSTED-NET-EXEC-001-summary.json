@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "PEER-TRUSTED-NET-EXEC-001",
+  "classification": "EXECUTED_SYNTHETIC_TEST_EVIDENCE",
+  "execution_date": "2026-08-13",
+  "environment": {
+    "asset": "peer-trusted",
+    "asset_uuid": "187E269C-7121-455F-B86B-32D696D0D181",
+    "guest_os": "Ubuntu 24.04.4 LTS",
+    "hostname": "s2-ubuntu-client",
+    "interface": "enp0s1",
+    "network": "VLAN 10 TRUSTED synthetic lab segment"
+  },
+  "pre_state": {
+    "runtime_ipv4": "10.10.10.10/27",
+    "runtime_default_route": "ABSENT",
+    "persistent_ipv4": "10.10.10.10/27",
+    "persistent_default_gateway": "10.10.10.1",
+    "persistent_dns": [
+      "1.1.1.1",
+      "8.8.8.8"
+    ]
+  },
+  "rollback": {
+    "path": "/etc/netplan/01-segment2-client.yaml.pre-correction-20260813",
+    "presence_verified": true
+  },
+  "persistent_netplan": {
+    "path": "/etc/netplan/01-segment2-client.yaml",
+    "file_mode": "0600",
+    "network_version": 2,
+    "interface": "enp0s1",
+    "dhcp4": false,
+    "dhcp6": false,
+    "addresses": [
+      "10.10.10.10/24"
+    ],
+    "default_gateway": "NONE",
+    "dns": []
+  },
+  "execution_results": {
+    "netplan_generate": "PASS",
+    "netplan_apply": "PASS",
+    "controlled_reboot": "PASS",
+    "human_login_validation": "PASS"
+  },
+  "immediate_runtime_state": {
+    "ipv4": "10.10.10.10/24",
+    "default_route": "ABSENT",
+    "interface_dns": "ABSENT",
+    "status": "PASS"
+  },
+  "post_reboot_state": {
+    "persistent_ipv4": "10.10.10.10/24",
+    "runtime_ipv4": "10.10.10.10/24",
+    "default_route": "ABSENT",
+    "interface_dns": "ABSENT",
+    "netplan_source_verified": true,
+    "rollback_file_present": true,
+    "status": "PASS"
+  },
+  "gate": {
+    "name": "PEER_TRUSTED_NETWORK_GATE",
+    "result": "PASS"
+  },
+  "evidence_boundary": {
+    "pfsense_mutated": false,
+    "other_vm_mutated": false,
+    "firewall_enforcement_tested": false,
+    "inter_zone_connectivity_tested": false,
+    "control_effectiveness_claimed": false,
+    "credential_material_retained": false,
+    "raw_vm_media_retained": false
+  },
+  "limitations": "Results were observed interactively in the local UTM guest console and retained as a minimized summary. No raw console transcript, credential material, VM disk or recovery ISO is retained. This evidence does not establish pfSense enforcement, inter-zone behavior or operating control effectiveness."
+}

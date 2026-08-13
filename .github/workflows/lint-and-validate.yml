@@ -36,6 +36,7 @@ jobs:
           python3 -m json.tool docs/evidence/executions/suricata/SURICATA-EXEC-001-alert.json > /dev/null
           python3 -m json.tool docs/evidence/executions/suricata/SURICATA-EXEC-001-summary.json > /dev/null
           python3 -m json.tool docs/evidence/executions/firewall/firewall-enforcement-summary.json > /dev/null
+          python3 -m json.tool docs/evidence/executions/peer-trusted-network/PEER-TRUSTED-NET-EXEC-001-summary.json > /dev/null
 
       - name: Validate firewall harness statically
         env:

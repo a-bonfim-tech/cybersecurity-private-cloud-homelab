@@ -29,6 +29,7 @@ including the **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-
 | Capability | Current state | Evidence boundary |
 | :--- | :--- | :--- |
 | Network segmentation | TESTED_IN_REFERENCE_HARNESS | Seven synthetic flows validate routed allow, explicit-deny, default-deny and port-scoping behavior in nftables; pfSense and Proxmox deployment remain unproven. |
+| Peer-trusted guest network | PERSISTENCE_TESTED | The synthetic VLAN 10 guest retained `10.10.10.10/24`, no default route and no DNS across a controlled reboot; this is not pfSense or inter-zone enforcement evidence. |
 | Proxmox infrastructure | CONFIGURED | Terraform is present; no `terraform apply` evidence is claimed. |
 | Suricata reconnaissance detection | TESTED | Suricata 8.0.6 emitted one alert for the positive PCAP and zero for two bounded negative controls. |
 | Wazuh correlation | TESTED | Wazuh 4.14.7 `wazuh-logtest` matched rule 100010 and passed two bounded negative controls; manager operation is unproven. |
@@ -49,6 +50,7 @@ including the **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-
 * **Purple-Team Runbook:** [`RUNBOOK-001`](docs/evidence/purple-team-runs/RUNBOOK-001-recon-and-pivoting.md)
 * **Evidence Manifest:** [`evidence-manifest.json`](docs/evidence/evidence-manifest.json)
 * **Firewall Harness:** [`tools/firewall-lab`](tools/firewall-lab) & [executed evidence](docs/evidence/executions/firewall/README.md)
+* **Peer-Trusted Network Gate:** [`RUNBOOK-002`](docs/evidence/purple-team-runs/RUNBOOK-002-peer-trusted-network-persistence.md) & [executed evidence](docs/evidence/executions/peer-trusted-network/README.md)
 * **Infrastructure-as-Code:** [`main.tf`](iac/terraform/main.tf)
 
 ---

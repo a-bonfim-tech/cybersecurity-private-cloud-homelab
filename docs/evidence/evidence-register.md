@@ -11,7 +11,10 @@
 | WAZUH-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native rule test | `docs/evidence/executions/wazuh/` | Actual Suricata alert decoded and evaluated by Wazuh 4.14.7. | Rule 100010 level 7 and T1046 matched |
 | WAZUH-NEG-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native negative test | `docs/evidence/executions/wazuh/` | Different signature ID. | Rule 100010 did not match |
 | WAZUH-NEG-002 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native negative test | `docs/evidence/executions/wazuh/` | Non-alert event type. | Rule 100010 did not match |
+| PEER-TRUSTED-NET-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Guest network persistence | `docs/evidence/executions/peer-trusted-network/` | Corrected Netplan source and runtime state for the synthetic VLAN 10 guest. | Generate/apply, immediate state, controlled reboot, post-reboot persistence and human login passed |
 
 The machine-readable source of truth is
 [`evidence-manifest.json`](evidence-manifest.json). No item in this register is
-classified as firewall or operating control-effectiveness evidence.
+classified as operating control-effectiveness evidence. The peer-trusted item
+is guest-configuration evidence, not pfSense or inter-zone enforcement
+evidence.

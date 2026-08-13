@@ -1,5 +1,5 @@
 {
-  "manifest_version": "1.1.0",
+  "manifest_version": "1.2.0",
   "scenario_id": "SCN-RECON-001",
   "scenario_name": "Synthetic VLAN30 to VLAN20 SYN reconnaissance",
   "synthetic_only": true,
@@ -13,6 +13,8 @@
   "reference_policy_enforcement_validated": true,
   "pfsense_execution_proven": false,
   "proxmox_deployment_proven": false,
+  "peer_trusted_network_gate": "PASS",
+  "peer_trusted_network_evidence_id": "PEER-TRUSTED-NET-EXEC-001",
   "control_effectiveness_claimed": false,
   "evidence_items": [
     {
@@ -322,6 +324,27 @@
       "actual_result": "Port 22 validated by FW-EXEC-001; port 23 exit 1; FW-005 counter 4 to 6",
       "verification_status": "VALIDATED",
       "limitations": "One bounded TCP port-scoping regression."
+    },
+    {
+      "evidence_id": "PEER-TRUSTED-NET-EXEC-001",
+      "scenario_id": "SCN-PEER-TRUSTED-NET-001",
+      "classification": "EXECUTED_SYNTHETIC_TEST_EVIDENCE",
+      "implementation_class": "GUEST_NETWORK_CONFIGURATION_PERSISTENCE",
+      "generator": "Human-observed controlled local-console procedure",
+      "tool": "Netplan and iproute2",
+      "tool_version": "Ubuntu 24.04.4 LTS packaged versions",
+      "command": "netplan generate; netplan apply; inspect address, routes, DNS and persistent source; controlled reboot; repeat inspections; human login validation",
+      "timestamp": "2026-08-13",
+      "environment": "Local UTM synthetic peer-trusted guest",
+      "input_path": "docs/evidence/executions/peer-trusted-network/PEER-TRUSTED-NET-EXEC-001-summary.json",
+      "input_sha256": "32352de46d3f55c2095a3a171759ce8e8c6df6503ec5327dada21cf9de0c3922",
+      "output_path": null,
+      "output_sha256": null,
+      "rule_id": null,
+      "expected_result": "Persistent and runtime 10.10.10.10/24 with no default route or DNS survives a controlled reboot and permits human login",
+      "actual_result": "Generate and apply passed; immediate and post-reboot state matched; rollback source remained present; human login passed",
+      "verification_status": "EXECUTED_SYNTHETIC_TEST_EVIDENCE",
+      "limitations": "Minimized human-observed console evidence only; no raw transcript, pfSense enforcement, inter-zone connectivity or control-effectiveness evidence."
     },
     {
       "evidence_id": "LOG-001",
