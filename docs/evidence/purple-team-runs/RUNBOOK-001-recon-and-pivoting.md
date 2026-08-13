@@ -11,8 +11,9 @@ directed toward the controlled VLAN 20 test host.
 - No Internet, third-party, production or personal data targets.
 - Obtain the lab owner's confirmation before enabling the temporary test path.
 - The PCAP corpus is synthetic. Suricata offline execution and Wazuh-native
-  rule testing are retained as `EXECUTED_SYNTHETIC_TEST_EVIDENCE`; firewall
-  enforcement remains pending.
+  rule testing are retained as `EXECUTED_SYNTHETIC_TEST_EVIDENCE`. Reference
+  nftables policy enforcement is retained separately; native pfSense and live
+  packet-path enforcement remain pending.
 
 ## Preconditions
 
@@ -110,7 +111,8 @@ The evidence manifest records the observed output:
 2. Positive and negative PCAP hashes.
 3. minimized Suricata alert and matching SID;
 4. Wazuh-native positive assertion and bounded negative controls;
-5. Firewall log with the matching five-tuple, if enforcement is evaluated.
+5. Reference nftables enforcement results and counters, retained separately
+   from this detection run.
 
 An IDS alert does not prove that the firewall blocked the packet.
 
@@ -133,11 +135,15 @@ An IDS alert does not prove that the firewall blocked the packet.
 
 CI regenerates the deterministic corpus and repeats Suricata configuration,
 positive and negative tests. Wazuh-native CI reproduction is performed by a
-separate isolated container gate. Firewall enforcement remains pending.
+separate isolated container gate. Reference nftables policy enforcement has
+executed in an isolated four-zone harness; native pfSense enforcement and the
+unified live packet path remain pending.
 
 ```text
 SURICATA_OFFLINE_EXECUTION=EXECUTED
 WAZUH_LOGTEST_EXECUTION=EXECUTED
 WAZUH_MANAGER_OPERATION=PENDING
-FIREWALL_ENFORCEMENT=PENDING
+REFERENCE_NFTABLES_ENFORCEMENT=EXECUTED_SYNTHETIC_TEST_EVIDENCE
+PFSENSE_NATIVE_ENFORCEMENT=PENDING
+UNIFIED_LIVE_PACKET_PATH=PENDING
 ```
