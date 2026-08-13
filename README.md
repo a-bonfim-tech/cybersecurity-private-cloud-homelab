@@ -17,16 +17,18 @@ evidence specifications for the **Cybersecurity Private Cloud Homelab**.
 
 The design applies defense-in-depth and Zero Trust principles to four proposed
 L2/L3 VLANs. Terraform resources and detection rules are **configured** and
-syntax-validated where the required tooling is available. The repository does
-not yet demonstrate an applied Proxmox deployment, an enforced firewall policy,
-or operating control effectiveness. It is intended to host federated workloads,
+syntax-validated where the required tooling is available. The default-deny
+segmentation policy is reproducibly tested in an isolated nftables reference
+harness using synthetic four-zone traffic. The evidence validates policy
+behavior, not pfSense or Proxmox deployment. The repository does not demonstrate
+an applied Proxmox deployment or operating control effectiveness. It is intended to host federated workloads,
 including the **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-platform)**.
 
 ## Evidence Status
 
 | Capability | Current state | Evidence boundary |
 | :--- | :--- | :--- |
-| Network segmentation | DESIGNED | VLANs and flows are specified; enforcement is not observed here. |
+| Network segmentation | TESTED_IN_REFERENCE_HARNESS | Seven synthetic flows validate routed allow, explicit-deny, default-deny and port-scoping behavior in nftables; pfSense and Proxmox deployment remain unproven. |
 | Proxmox infrastructure | CONFIGURED | Terraform is present; no `terraform apply` evidence is claimed. |
 | Suricata reconnaissance detection | TESTED | Suricata 8.0.6 emitted one alert for the positive PCAP and zero for two bounded negative controls. |
 | Wazuh correlation | TESTED | Wazuh 4.14.7 `wazuh-logtest` matched rule 100010 and passed two bounded negative controls; manager operation is unproven. |
@@ -46,6 +48,7 @@ including the **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-
 * **Threat Modeling & Graphs:** [`server-ingress-attack-graph.json`](attack-graphs/server-ingress-attack-graph.json) & [`threat-model.md`](docs/threat-model/threat-model.md)
 * **Purple-Team Runbook:** [`RUNBOOK-001`](docs/evidence/purple-team-runs/RUNBOOK-001-recon-and-pivoting.md)
 * **Evidence Manifest:** [`evidence-manifest.json`](docs/evidence/evidence-manifest.json)
+* **Firewall Harness:** [`tools/firewall-lab`](tools/firewall-lab) & [executed evidence](docs/evidence/executions/firewall/README.md)
 * **Infrastructure-as-Code:** [`main.tf`](iac/terraform/main.tf)
 
 ---

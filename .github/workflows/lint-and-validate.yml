@@ -35,6 +35,12 @@ jobs:
           python3 -m json.tool docs/evidence/evidence-manifest.json > /dev/null
           python3 -m json.tool docs/evidence/executions/suricata/SURICATA-EXEC-001-alert.json > /dev/null
           python3 -m json.tool docs/evidence/executions/suricata/SURICATA-EXEC-001-summary.json > /dev/null
+          python3 -m json.tool docs/evidence/executions/firewall/firewall-enforcement-summary.json > /dev/null
+
+      - name: Validate firewall harness statically
+        env:
+          SKIP_NFT_IMAGE_PARSE: "1"
+        run: tools/firewall-lab/validate-static.sh
 
       - name: Regenerate deterministic synthetic PCAP corpus
         run: |

@@ -2,8 +2,10 @@
 
 ## Scope and evidence boundary
 
-This document defines the intended inter-zone policy. It does not prove that a
-firewall configuration has been applied or that a control is effective.
+This document defines the intended inter-zone policy and links the routed rules
+to bounded execution in an isolated nftables reference harness. It does not
+prove that pfSense or Proxmox has been deployed or that a control is
+operationally effective.
 
 | VLAN | Name | CIDR | Intended purpose |
 | :--- | :--- | :--- | :--- |
@@ -25,15 +27,20 @@ firewall configuration has been applied or that a control is effective.
 
 | ID | Source | Destination | Protocol | Port / service | Action | Justification | Owner | Logging | Exception | Positive test | Negative test | Evidence reference | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| FW-001 | VLAN 10 | VLAN 20 | TCP | 22 / SSH | ALLOW | Bounded server administration | Homelab administrator | Session start and deny events | None | Authorized admin source reaches SSH | VLAN 30 cannot reach SSH | Pending | DESIGNED |
-| FW-002 | VLAN 20 | VLAN 40 | TCP | 1514 / Wazuh agent | ALLOW | Forward security telemetry | Homelab administrator | Connection and deny events | None | Agent sends synthetic event | Other destination port is denied | Pending | DESIGNED |
-| FW-003 | VLAN 40 | VLAN 20 | L2 mirror | SPAN / TAP | ALLOW | Passive network observation | Homelab administrator | Sensor health | Physical or virtual mirror configuration | Sensor receives test packet | Sensor cannot initiate session to workload | Pending | DESIGNED |
-| FW-004 | VLAN 30 | VLAN 20 | TCP | 22, 80, 443, 8080 | DENY | Isolate the authorized attack-simulation zone | Homelab administrator | All matching denies | Temporary test exception must be time-bound | Synthetic probe is denied and logged | Benign traffic inside VLAN 30 is unaffected | `PCAP-001` is a specification, not enforcement evidence | DESIGNED |
-| FW-005 | Any zone | Any other zone | Any | Any | DENY | Default-deny inter-zone baseline | Homelab administrator | All denies | Explicit rules above only | Unlisted flow is denied | Explicit allow remains usable | Pending | DESIGNED |
+| FW-001 | VLAN 10 | VLAN 20 | TCP | 22 / SSH | ALLOW | Bounded server administration | Homelab administrator | Counter observed; kernel log not retained | None | Authorized admin source reaches synthetic listener | Port 23 reaches default deny | `FW-EXEC-001`, `FW-NEG-001` | TESTED_IN_REFERENCE_HARNESS |
+| FW-002 | VLAN 20 | VLAN 40 | TCP | 1514 / Wazuh agent | ALLOW | Forward security telemetry | Homelab administrator | Counter observed; kernel log not retained | None | Synthetic connection reaches listener | Other destination port remains default denied | `FW-EXEC-002` | TESTED_IN_REFERENCE_HARNESS |
+| FW-003 | VLAN 40 | VLAN 20 | L2 mirror | SPAN / TAP | ALLOW | Passive network observation | Homelab administrator | Sensor health | Physical or virtual mirror configuration | Sensor receives test packet | Sensor cannot initiate session to workload | Not exercised by routed harness | NOT_APPLICABLE_TO_ROUTED_REFERENCE_HARNESS |
+| FW-004 | VLAN 30 | VLAN 20 | TCP | 22, 80, 443, 8080 | DENY | Isolate the authorized attack-simulation zone | Homelab administrator | Counter observed; kernel log not retained | Temporary test exception must be time-bound | Synthetic probes to 22 and 443 are denied | Explicit allow paths remain usable | `FW-EXEC-003`, `FW-EXEC-004` | TESTED_IN_REFERENCE_HARNESS |
+| FW-005 | Any zone | Any other zone | Any | Any | DENY | Default-deny inter-zone baseline | Homelab administrator | Counter observed; kernel log not retained | Explicit rules above only | Two unlisted flows are denied | Explicit allows remain usable | `FW-EXEC-005`, `FW-EXEC-006`, `FW-NEG-001` | TESTED_IN_REFERENCE_HARNESS |
 
 ## Validation gate
 
-Promotion from `DESIGNED` to `TESTED` requires a redacted firewall ruleset,
-positive and negative test output, timestamps, tool versions and hashes in the
-evidence manifest. Promotion to `EFFECTIVE` additionally requires repeatable
-operating evidence; this repository currently makes no such claim.
+`TESTED_IN_REFERENCE_HARNESS` requires a retained ruleset, positive and
+negative test output, timestamps, tool versions and hashes in the evidence
+manifest. The evidence under `docs/evidence/executions/firewall/` satisfies
+that bounded reference gate for FW-001, FW-002, FW-004 and FW-005. Promotion to
+`EFFECTIVE` additionally requires repeatable operating evidence; this
+repository currently makes no such claim.
+
+This is reference nftables enforcement evidence and does not prove pfSense or
+Proxmox deployment.

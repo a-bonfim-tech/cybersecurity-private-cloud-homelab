@@ -1,21 +1,23 @@
 {
   "graph_name": "Synthetic VLAN30 to VLAN20 Reconnaissance",
   "scenario_id": "SCN-RECON-001",
-  "validation_status": "SPECIFICATION_ONLY",
+  "validation_status": "COMPLEMENTARY_EXECUTED_CONTROL_PATHS",
   "nodes": [
     {"id": "actor_1", "label": "Authorized lab operator", "type": "Actor", "zone": "VLAN_30"},
     {"id": "source_1", "label": "Synthetic test host 10.10.30.5", "type": "TestSource", "zone": "VLAN_30"},
     {"id": "boundary_1", "label": "Default-deny inter-zone boundary", "type": "TrustBoundary", "zone": "VLAN_30_TO_VLAN_20"},
     {"id": "target_1", "label": "Controlled server test host 10.10.20.15", "type": "Asset", "zone": "VLAN_20"},
     {"id": "sensor_1", "label": "Suricata sensor SID 1000001", "type": "DetectiveControl", "zone": "VLAN_40"},
-    {"id": "evidence_1", "label": "PCAP-001 and LOG-001 specifications", "type": "Evidence", "zone": "REPOSITORY"}
+    {"id": "correlator_1", "label": "Wazuh rule 100010", "type": "CorrelationControl", "zone": "VLAN_40"},
+    {"id": "evidence_1", "label": "Complementary executed synthetic evidence", "type": "Evidence", "zone": "REPOSITORY"}
   ],
   "edges": [
     {"source": "actor_1", "target": "source_1", "relation": "OPERATES_AUTHORIZED_SYNTHETIC_TEST", "precondition": "Accountable lab authorization"},
     {"source": "source_1", "target": "boundary_1", "relation": "SENDS_REPEATED_TCP_SYN", "mitre_id": "T1046", "action": "Bounded network service discovery"},
-    {"source": "boundary_1", "target": "target_1", "relation": "DENY_POLICY_EXPECTED", "preventive_control": "FW-004", "validation_status": "PENDING_EXECUTION"},
-    {"source": "source_1", "target": "sensor_1", "relation": "GENERATES_MIRRORED_TELEMETRY", "detective_control": "Suricata SID 1000001", "validation_status": "PENDING_EXECUTION"},
-    {"source": "sensor_1", "target": "evidence_1", "relation": "PRODUCES_EXPECTED_ALERT_CHAIN", "wazuh_rule_id": "100010", "validation_status": "SPECIFICATION_ONLY"}
+    {"source": "boundary_1", "target": "target_1", "relation": "DENIED_IN_REFERENCE_HARNESS", "preventive_control": "FW-004", "preventive_validation": "TESTED_IN_REFERENCE_HARNESS", "preventive_evidence": "FW-EXEC-003"},
+    {"source": "source_1", "target": "sensor_1", "relation": "GENERATES_OFFLINE_TEST_VECTOR", "detective_control": "Suricata SID 1000001", "detective_evidence": "SURICATA-EXEC-001"},
+    {"source": "sensor_1", "target": "correlator_1", "relation": "CANONICAL_ALERT_TEST_INPUT", "correlation_control": "Wazuh 100010", "correlation_evidence": "WAZUH-EXEC-001"},
+    {"source": "correlator_1", "target": "evidence_1", "relation": "COMPLEMENTARY_EXECUTED_CONTROL_PATHS", "unified_deployed_packet_path_proven": false}
   ],
   "residual_risk": {
     "statement": "Thresholded detection can miss slow, distributed or non-SYN reconnaissance.",
