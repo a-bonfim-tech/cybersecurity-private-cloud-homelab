@@ -8,7 +8,10 @@ terraform {
   }
 }
 
-# Configuration only: this repository contains no evidence of terraform apply.
+# Target network assignments are aligned to CURRENT_NATIVE_PF_TOPOLOGY.
+# The gateway VM remains a pfSense target configuration and is distinct from
+# the executed FreeBSD PF lab router. This repository contains no evidence of
+# terraform apply.
 provider "proxmox" {
   pm_api_url          = var.proxmox_api_url
   pm_api_token_id     = var.proxmox_api_token_id
@@ -78,13 +81,13 @@ resource "proxmox_vm_qemu" "pfsense_gateway" {
   network {
     model  = "virtio"
     bridge = "vmbr0"
-    tag    = 30
+    tag    = 60
   }
 
   network {
     model  = "virtio"
     bridge = "vmbr0"
-    tag    = 40
+    tag    = 70
   }
 }
 
@@ -103,10 +106,11 @@ resource "proxmox_vm_qemu" "bonfim_ai_workload" {
 }
 
 output "gateway_vlan_assignments" {
+  description = "Target Proxmox VLAN assignments aligned to CURRENT_NATIVE_PF_TOPOLOGY. Configuration only; terraform apply is not evidenced."
   value = {
-    trusted    = "VLAN 10 - 10.10.10.0/24"
+    users      = "VLAN 10 - 10.10.10.0/27"
     servers    = "VLAN 20 - 10.10.20.0/24"
-    cyberlab   = "VLAN 30 - 10.10.30.0/24"
-    monitoring = "VLAN 40 - 10.10.40.0/24"
+    monitoring = "VLAN 60 - 10.10.60.0/25"
+    management = "VLAN 70 - 10.10.70.0/28"
   }
 }

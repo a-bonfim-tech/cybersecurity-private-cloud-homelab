@@ -1,24 +1,69 @@
 # Trust Boundaries & Traffic Flow Matrix
 
-## Network Zones
-* VLAN 10 (TRUSTED): Admin Access
-* VLAN 20 (SERVERS): Hosted Workloads (Bonfim AI Platform)
-* VLAN 30 (CYBER LAB): Isolated Attack Testing
-* VLAN 40 (MONITORING): Passive SPAN/TAP Sensors
+## Topology classes
 
-## Inter-Zone Controls
+This repository intentionally retains two network models.
 
-The intended control is explicit allowlisting over a default-deny inter-zone
-baseline. The complete designed matrix is maintained in
-[`firewall-policy.md`](../governance/firewall-policy.md). Enforcement has not
-been observed or demonstrated by this repository.
+### CURRENT_NATIVE_PF_TOPOLOGY
 
-## Executed guest-network gate
+This is the authoritative current lab segmentation model.
 
-The synthetic VLAN 10 `peer-trusted` guest was validated with persistent and
-post-reboot runtime address `10.10.10.10/24`, no default route and no
-interface-scoped DNS. Evidence is retained as
-[`PEER-TRUSTED-NET-EXEC-001`](../evidence/executions/peer-trusted-network/).
+| Zone | CIDR | Router interface |
+| :--- | :--- | :--- |
+| USERS | `10.10.10.0/27` | `vtnet1` |
+| SERVERS | `10.10.20.0/24` | `vtnet2` |
+| MONITORING | `10.10.60.0/25` | `vtnet3` |
+| MANAGEMENT | `10.10.70.0/28` | `vtnet4` |
 
-This proves one guest's configuration persistence only. It does not change the
-inter-zone enforcement boundary above and does not prove pfSense behavior.
+Native FreeBSD PF execution evidence is retained as
+[`FBSD-PF-SEG-EXEC-001`](../evidence/executions/freebsd-pf-segmentation/README.md).
+
+The bounded execution demonstrated routing, NAT, selected inter-zone allow and
+deny paths, management access and controlled reboot persistence.
+
+### REFERENCE_SYNTHETIC_TOPOLOGY
+
+Historical detection engineering and the nftables reference harness use:
+
+| Zone | CIDR |
+| :--- | :--- |
+| TRUSTED | `10.10.10.0/24` |
+| SERVERS | `10.10.20.0/24` |
+| CYBER LAB | `10.10.30.0/24` |
+| MONITORING | `10.10.40.0/24` |
+
+This model remains valid for its retained PCAP, Suricata, Wazuh and nftables
+test evidence. It is not the authoritative current native PF topology.
+
+## Inter-zone controls
+
+The current native PF baseline is default deny with explicit permitted paths.
+
+Observed bounded paths include:
+
+| Source | Destination | Observed result |
+| :--- | :--- | :--- |
+| MONITORING | USERS | ALLOW |
+| MONITORING | SERVERS | ALLOW |
+| MONITORING | MANAGEMENT | DENY |
+| MANAGEMENT | USERS | ALLOW |
+| MANAGEMENT | SERVERS | ALLOW |
+| MANAGEMENT | MONITORING | ALLOW |
+| USERS | SERVERS | DENY |
+
+These observations are bounded lab evidence and do not establish continuous
+operating effectiveness.
+
+## Historical peer-trusted evidence
+
+`PEER-TRUSTED-NET-EXEC-001` is retained guest-configuration evidence. The
+historical package contains both `/27` and `/24` address states across its
+correction procedure.
+
+It therefore MUST NOT be used as the source of truth for the current network
+prefix. The authoritative current USERS network is `10.10.10.0/27`, supported
+by the native PF execution evidence.
+
+See
+[`ADR-002`](../adr/ADR-002-topology-reconciliation.md)
+for the topology reconciliation decision.
