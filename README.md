@@ -1,5 +1,7 @@
 # Cybersecurity Private Cloud Homelab
 
+![Cybersecurity Private Cloud Homelab](docs/assets/cybersecurity-private-cloud-homelab-banner.png)
+
 [![Lint and Validate](https://github.com/a-bonfim-tech/cybersecurity-private-cloud-homelab/actions/workflows/lint-and-validate.yml/badge.svg)](https://github.com/a-bonfim-tech/cybersecurity-private-cloud-homelab/actions/workflows/lint-and-validate.yml)
 [![Evidence Integrity](https://img.shields.io/badge/evidence-integrity%20validated-success)](docs/evidence/evidence-manifest.json)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -36,6 +38,29 @@ These results do not prove pfSense or Proxmox deployment, production readiness,
 formal compliance or continuous operating control effectiveness. The repository
 is intended to host federated workloads, including the
 **[Bonfim AI Platform](https://github.com/a-bonfim-tech/bonfim-ai-platform)**.
+
+## What This Repository Proves
+
+### Proven by retained evidence
+
+- Native FreeBSD PF segmentation and routing in the local UTM lab
+- Inter-zone allow and deny behavior for the validated test matrix
+- NAT from all four validated internal networks
+- PF, IPv4 forwarding and management access persistence after controlled reboot
+- Suricata positive and bounded negative detection tests
+- Wazuh native rule evaluation with bounded negative controls
+- Evidence integrity through manifests, SHA-256 hashes and automated validation
+
+### Not proven
+
+- pfSense execution
+- Proxmox deployment or terraform apply
+- Continuous operating control effectiveness
+- Compliance certification
+- External audit
+- A unified PF-to-Suricata-to-Wazuh operational packet path
+
+---
 
 ## Evidence Status
 
