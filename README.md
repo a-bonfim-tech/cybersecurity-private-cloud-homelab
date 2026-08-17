@@ -1,10 +1,6 @@
 # Cybersecurity Private Cloud Homelab
 
 [![Lint and Validate](https://github.com/a-bonfim-tech/cybersecurity-private-cloud-homelab/actions/workflows/lint-and-validate.yml/badge.svg)](https://github.com/a-bonfim-tech/cybersecurity-private-cloud-homelab/actions/workflows/lint-and-validate.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
-
-[![Lint and Validate](https://github.com/a-bonfim-tech/cybersecurity-private-cloud-homelab/actions/workflows/lint-and-validate.yml/badge.svg)](https://github.com/a-bonfim-tech/cybersecurity-private-cloud-homelab/actions/workflows/lint-and-validate.yml)
 [![Evidence Integrity](https://img.shields.io/badge/evidence-integrity%20validated-success)](docs/evidence/evidence-manifest.json)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
