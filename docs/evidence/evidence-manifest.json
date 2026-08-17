@@ -342,9 +342,9 @@
       "output_sha256": null,
       "rule_id": null,
       "expected_result": "Persistent and runtime 10.10.10.10/24 with no default route or DNS survives a controlled reboot and permits human login",
-      "actual_result": "Generate and apply passed; immediate and post-reboot state matched; rollback source remained present; human login passed",
+      "actual_result": "Historical retained guest-configuration package records a controlled correction and reboot procedure but contains both /27 and /24 address states; it is not authoritative for the current topology.",
       "verification_status": "EXECUTED_SYNTHETIC_TEST_EVIDENCE",
-      "limitations": "Minimized human-observed console evidence only; no raw transcript, pfSense enforcement, inter-zone connectivity or control-effectiveness evidence."
+      "limitations": "Historical guest-configuration evidence only. The retained package contains both /27 and /24 address states across correction steps. Do not use it as the current network-prefix source of truth; current topology authority is FBSD-PF-SEG-EXEC-001."
     },
     {
       "evidence_id": "LOG-001",

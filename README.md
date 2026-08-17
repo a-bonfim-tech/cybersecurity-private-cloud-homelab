@@ -11,7 +11,8 @@
 > synthetic detection-engineering scenarios.
 
 - Architecture: [federated design](docs/adr/ADR-001-federated-architecture.md)
-- Security model: [default-deny policy specification](docs/governance/firewall-policy.md)
+- Current security model: [native PF segmentation policy](docs/governance/current-segmentation-policy.md)
+- Reference security model: [synthetic nftables policy](docs/governance/firewall-policy.md)
 - Governance: [BSI and ISO/IEC control mapping](docs/governance/bsi-iso-mapping.md)
 
 ---
@@ -67,7 +68,7 @@ is intended to host federated workloads, including the
 | Capability | Current state | Evidence boundary |
 | :--- | :--- | :--- |
 | Network segmentation | NATIVE_PF_AND_REFERENCE_HARNESS_TESTED | Native FreeBSD PF execution validates routing, NAT, inter-zone allow/deny behavior and controlled reboot persistence; the nftables harness remains complementary reference-policy evidence. pfSense and Proxmox deployment remain unproven. |
-| Peer-trusted guest network | PERSISTENCE_TESTED | The synthetic VLAN 10 guest retained `10.10.10.10/24`, no default route and no DNS across a controlled reboot; this is not pfSense or inter-zone enforcement evidence. |
+| Peer-trusted guest network | HISTORICAL_PERSISTENCE_EVIDENCE | The retained historical guest package includes both `/27` and `/24` address states across its correction procedure. It remains bounded guest-configuration evidence and is not authoritative for the current topology. |
 | Proxmox infrastructure | CONFIGURED | Terraform is present; no `terraform apply` evidence is claimed. |
 | Suricata reconnaissance detection | TESTED | Suricata 8.0.6 emitted one alert for the positive PCAP and zero for two bounded negative controls. |
 | Wazuh correlation | TESTED | Wazuh 4.14.7 `wazuh-logtest` matched rule 100010 and passed two bounded negative controls; manager operation is unproven. |
@@ -75,6 +76,19 @@ is intended to host federated workloads, including the
 
 - `COMPLIANCE_CERTIFIED=false`
 - `EXTERNAL_AUDIT_PERFORMED=false`
+
+---
+
+## Topology Classification
+
+The repository retains two intentionally distinct network models:
+
+- **`CURRENT_NATIVE_PF_TOPOLOGY`** — `10.10.10.0/27`, `10.10.20.0/24`, `10.10.60.0/25`, `10.10.70.0/28`; authoritative for the current native PF lab and target IaC.
+- **`REFERENCE_SYNTHETIC_TOPOLOGY`** — historical `10.10.10.0/24`, `10.10.20.0/24`, `10.10.30.0/24`, `10.10.40.0/24`; retained for the nftables, Suricata and Wazuh synthetic evidence.
+
+Historical execution artifacts are not rewritten to simulate execution under
+the current topology. See
+[`ADR-002`](docs/adr/ADR-002-topology-reconciliation.md).
 
 ---
 

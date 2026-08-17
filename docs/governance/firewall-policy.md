@@ -1,11 +1,18 @@
-# Baseline Firewall Policy Specification
+# Reference Synthetic Firewall Policy Specification
 
 ## Scope and evidence boundary
 
-This document defines the intended inter-zone policy and links the routed rules
-to bounded execution in an isolated nftables reference harness. It does not
-prove that pfSense or Proxmox has been deployed or that a control is
-operationally effective.
+This document defines `REFERENCE_SYNTHETIC_TOPOLOGY` and links its routed rules
+to bounded execution in an isolated nftables reference harness.
+
+It intentionally retains the historical `10/20/30/40` synthetic network model
+used by the associated PCAP, Suricata, Wazuh and nftables evidence.
+
+It is not the authoritative current native PF topology. The current policy is
+defined in [`current-segmentation-policy.md`](current-segmentation-policy.md).
+
+This document does not prove pfSense or Proxmox deployment or continuous
+operating control effectiveness.
 
 | VLAN | Name | CIDR | Intended purpose |
 | :--- | :--- | :--- | :--- |
