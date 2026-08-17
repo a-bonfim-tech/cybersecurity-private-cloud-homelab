@@ -365,6 +365,27 @@
       "actual_result": "Superseded for execution by the actual SURICATA-EXEC-001 input retained as WAZUH-EXEC-001",
       "verification_status": "TEST_VECTOR_SPECIFICATION",
       "limitations": "This historical hand-authored file remains a specification and is not Wazuh-emitted output."
+    },
+    {
+      "evidence_id": "FBSD-PF-SEG-EXEC-001",
+      "scenario_id": "SCN-FBSD-PF-SEG-001",
+      "classification": "EXECUTED_SYNTHETIC_TEST_EVIDENCE",
+      "implementation_class": "NATIVE_FREEBSD_PF_SEGMENTATION",
+      "generator": "Human-observed controlled UTM FreeBSD PF procedure",
+      "tool": "FreeBSD PF",
+      "tool_version": "FreeBSD 14.3-RELEASE packaged PF",
+      "command": "pfctl validation and reload; controlled allow/deny ICMP and TCP tests; NAT Internet test; controlled reboot; post-reboot PF, NAT, forwarding and SSH verification",
+      "timestamp": "2026-08-17",
+      "environment": "Local macOS UTM lab with native FreeBSD router",
+      "input_path": "docs/evidence/executions/freebsd-pf-segmentation/FBSD-PF-SEG-EXEC-001-summary.json",
+      "input_sha256": "7580795bf97419df0c652c7a4ee82a9b47196a47e098b2a1be928c9d8d6f173c",
+      "output_path": "docs/evidence/executions/freebsd-pf-segmentation/README.md",
+      "output_sha256": "b4932113cdf7c814e46b03971e6ec3ada1b1d19ca912c3037d99a5bcc5440263",
+      "rule_id": null,
+      "expected_result": "Monitoring reaches users and servers but not management; management reaches internal networks; users cannot reach servers; NAT and management SSH survive reboot",
+      "actual_result": "Observed allow and deny paths matched policy; four NAT rules loaded; PF, IPv4 forwarding and management SSH recovered after controlled reboot",
+      "verification_status": "VALIDATED",
+      "limitations": "Local UTM FreeBSD PF lab evidence only; does not prove pfSense, Proxmox, production readiness, compliance or continuous operating effectiveness."
     }
   ]
 }

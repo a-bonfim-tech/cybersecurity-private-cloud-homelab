@@ -1,0 +1,13 @@
+block drop all
+pass in on vtnet1 inet from 10.10.0.0/16 to ! 10.10.0.0/16 flags S/SA keep state
+pass in on vtnet2 inet from 10.10.0.0/16 to ! 10.10.0.0/16 flags S/SA keep state
+pass in on vtnet3 inet from 10.10.0.0/16 to ! 10.10.0.0/16 flags S/SA keep state
+pass in on vtnet4 inet from 10.10.0.0/16 to ! 10.10.0.0/16 flags S/SA keep state
+pass out on vtnet0 all flags S/SA keep state
+pass in quick on vtnet3 inet from 10.10.60.0/25 to 10.10.10.0/27 flags S/SA keep state
+pass in quick on vtnet3 inet from 10.10.60.0/25 to 10.10.20.0/24 flags S/SA keep state
+pass in quick on vtnet4 inet from 10.10.70.0/28 to 10.10.0.0/16 flags S/SA keep state
+pass out on vtnet1 all flags S/SA keep state
+pass out on vtnet2 all flags S/SA keep state
+pass out on vtnet3 all flags S/SA keep state
+pass out on vtnet4 all flags S/SA keep state

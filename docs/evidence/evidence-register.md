@@ -19,6 +19,7 @@
 | FW-EXEC-006 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference policy enforcement | `docs/evidence/executions/firewall/` | SERVERS-to-TRUSTED unlisted-port default deny in the isolated nftables harness. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; denial and FW-005 counter passed |
 | FW-NEG-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Reference negative test | `docs/evidence/executions/firewall/` | TRUSTED-to-SERVERS TCP/23 verifies allow-rule port scoping. | `implementation_class=REFERENCE_POLICY_ENFORCEMENT`; denial and FW-005 counter passed |
 | PEER-TRUSTED-NET-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Guest network persistence | `docs/evidence/executions/peer-trusted-network/` | Corrected Netplan source and runtime state for the synthetic VLAN 10 guest. | Generate/apply, immediate state, controlled reboot, post-reboot persistence and human login passed |
+| FBSD-PF-SEG-EXEC-001 | EXECUTED_SYNTHETIC_TEST_EVIDENCE | Native FreeBSD PF segmentation | `docs/evidence/executions/freebsd-pf-segmentation/` | Observed native PF routing, NAT, inter-zone allow/deny behavior and controlled reboot persistence in the local UTM lab. | `implementation_class=NATIVE_FREEBSD_PF_SEGMENTATION`; allow/deny matrix, NAT, PF reload and post-reboot management path validated |
 
 The machine-readable source of truth is
 [`evidence-manifest.json`](evidence-manifest.json). No item in this register is

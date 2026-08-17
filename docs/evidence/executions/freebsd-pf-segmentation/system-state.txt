@@ -1,0 +1,4 @@
+net.inet.ip.forwarding: 1
+14.3-RELEASE
+FreeBSD s2-freebsd-router 14.3-RELEASE FreeBSD 14.3-RELEASE releng/14.3-n271432-8c9ce319fef7 GENERIC arm64
+ 5:47PM  up 12 mins, 0 users, load averages: 0.16, 0.23, 0.20

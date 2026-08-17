@@ -1,0 +1,4 @@
+nat on vtnet0 inet from 10.10.10.0/27 to any -> (vtnet0) round-robin
+nat on vtnet0 inet from 10.10.20.0/24 to any -> (vtnet0) round-robin
+nat on vtnet0 inet from 10.10.60.0/25 to any -> (vtnet0) round-robin
+nat on vtnet0 inet from 10.10.70.0/28 to any -> (vtnet0) round-robin

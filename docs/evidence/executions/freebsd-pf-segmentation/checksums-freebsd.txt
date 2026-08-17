@@ -1,0 +1,2 @@
+SHA256 (/etc/pf.conf) = a89aa331a75eedc5628b843d1954d8ee01a6e38565a4ffdda80a114237ec5fb9
+SHA256 (/etc/rc.conf) = e7406e8dd2d5aa67740b4b3496a792c0595bc8b76ce876ba35ddf6c4b6317d6a
