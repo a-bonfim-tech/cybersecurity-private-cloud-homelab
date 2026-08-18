@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "path": "raw/application.txt",
+      "sha256": "5167d51b69a57d9f79b925e99e0d2b51e1f079ff162069de25116add3e4137cd",
+      "size": 668
+    },
+    {
+      "path": "raw/network-after.txt",
+      "sha256": "4184d1b3fa5e1f66c306104f211196e2524f0f6ebcca7f9e19512eee91a50b04",
+      "size": 21
+    },
+    {
+      "path": "raw/network-before.txt",
+      "sha256": "4184d1b3fa5e1f66c306104f211196e2524f0f6ebcca7f9e19512eee91a50b04",
+      "size": 21
+    },
+    {
+      "path": "raw/processes-after.txt",
+      "sha256": "2de7bb5d672e64d7e2a7dec5432a7c023b2298302f6d67d94ac979a75fdee694",
+      "size": 59948
+    },
+    {
+      "path": "raw/processes-before.txt",
+      "sha256": "1129c83001074b75ab02d15fbb4ead86a75c881c82438ef7c98980ab87a28de9",
+      "size": 59151
+    },
+    {
+      "path": "raw/run-metadata.txt",
+      "sha256": "92ca6d1cca6e05c66e729335ad9762ccd331975a8fb8797ac255b0cf01e20e4a",
+      "size": 258
+    },
+    {
+      "path": "raw/system.txt",
+      "sha256": "8b58a4f79cb80fc6eb4675fafffb9c8d49cc15611679252e6c3a0ecbebfd7bfb",
+      "size": 245
+    },
+    {
+      "path": "raw/target-pids-after.txt",
+      "sha256": "9bfb3c7c8a91f6e4cb4d7e9861353032e343d8125115fd3f015164b0a7095580",
+      "size": 5
+    },
+    {
+      "path": "raw/target-pids-before.txt",
+      "sha256": "9bfb3c7c8a91f6e4cb4d7e9861353032e343d8125115fd3f015164b0a7095580",
+      "size": 5
+    },
+    {
+      "path": "raw/tcc-after.txt",
+      "sha256": "c2fbc60929bfe9cd45cf73e6197810287c6b0848bcde0699485c0d7e5a9aca39",
+      "size": 1844
+    },
+    {
+      "path": "raw/tcc-before.txt",
+      "sha256": "c2fbc60929bfe9cd45cf73e6197810287c6b0848bcde0699485c0d7e5a9aca39",
+      "size": 1844
+    },
+    {
+      "path": "raw/unified.log",
+      "sha256": "9f3545eaa6c7b6e2dcceb60b057d16ef5516abc7736f3cb4c2cc8106a6c74d8d",
+      "size": 50210
+    }
+  ],
+  "end_utc": "2026-08-18T20:48:38Z",
+  "evidence_class": "OBSERVED",
+  "generated_utc": "2026-08-18T20:48:40.494066+00:00",
+  "manifest_version": "1.0.0",
+  "raw_evidence_mutability_policy": "DO_NOT_MODIFY_AFTER_MANIFEST",
+  "run_id": "20260818T204828Z-baseline-no-camera-action",
+  "scenario": "baseline-no-camera-action",
+  "start_utc": "2026-08-18T20:48:28Z"
+}

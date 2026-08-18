@@ -1,0 +1,15 @@
+{
+  "artifact_class": "DERIVED",
+  "artifacts": [
+    {
+      "path": "derived/timeline.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    }
+  ],
+  "generated_utc": "2026-08-18T20:57:01.919369+00:00",
+  "manifest_version": "1.0.0",
+  "run_id": "20260818T205636Z-control-a-no-chatgpt",
+  "source_raw_manifest": "manifest.json",
+  "source_raw_manifest_sha256": "cf83c2e79e347b80502c357e04d49c25846bfc0bdf48cf65acea837a5b181146"
+}

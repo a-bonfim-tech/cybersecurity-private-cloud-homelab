@@ -1,0 +1,6 @@
+# Raw experimental evidence may contain host-specific or sensitive data.
+evidence/runs/*/raw/
+
+# Python artifacts
+__pycache__/
+*.pyc

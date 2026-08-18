@@ -1,0 +1,2 @@
+  399     1     0 root         /usr/libexec/PerfPowerServices /usr/libexec/PerfPowerServices
+  635     1   501 user         /System/Applications/QuickTime Player.app/Contents/MacOS/QuickTime Player /System/Applications/QuickTime Player.app/Contents/MacOS/QuickTime Player

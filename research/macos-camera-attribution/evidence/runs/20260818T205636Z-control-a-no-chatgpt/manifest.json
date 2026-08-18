@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "path": "raw/application.txt",
+      "sha256": "5167d51b69a57d9f79b925e99e0d2b51e1f079ff162069de25116add3e4137cd",
+      "size": 668
+    },
+    {
+      "path": "raw/network-after.txt",
+      "sha256": "ff0c4af645be27989f8399a1f7c4149fe6868279743d20e73d59a90bd68f66d7",
+      "size": 21
+    },
+    {
+      "path": "raw/network-before.txt",
+      "sha256": "ff0c4af645be27989f8399a1f7c4149fe6868279743d20e73d59a90bd68f66d7",
+      "size": 21
+    },
+    {
+      "path": "raw/processes-after.txt",
+      "sha256": "88d9441c6d607839fd172dae8241f3d704689403122bfbaa80b7cf84156587da",
+      "size": 61076
+    },
+    {
+      "path": "raw/processes-before.txt",
+      "sha256": "a401c8ca141252ffaff30f4f67cf7771c48b1fe12ba62d2c5d86b2480792e381",
+      "size": 59396
+    },
+    {
+      "path": "raw/run-metadata.txt",
+      "sha256": "7ec5f0ae2a77b13d2df9bf4a5a9f363f1f359a5a294f6c2c354ec876dd89bd7d",
+      "size": 248
+    },
+    {
+      "path": "raw/system.txt",
+      "sha256": "8b58a4f79cb80fc6eb4675fafffb9c8d49cc15611679252e6c3a0ecbebfd7bfb",
+      "size": 245
+    },
+    {
+      "path": "raw/target-pids-after.txt",
+      "sha256": "c0cc90b9a108fa52da871fa029346154270345aac0fcd2f89616f66a8eb5f76c",
+      "size": 5
+    },
+    {
+      "path": "raw/target-pids-before.txt",
+      "sha256": "c0cc90b9a108fa52da871fa029346154270345aac0fcd2f89616f66a8eb5f76c",
+      "size": 5
+    },
+    {
+      "path": "raw/tcc-after.txt",
+      "sha256": "c2fbc60929bfe9cd45cf73e6197810287c6b0848bcde0699485c0d7e5a9aca39",
+      "size": 1844
+    },
+    {
+      "path": "raw/tcc-before.txt",
+      "sha256": "c2fbc60929bfe9cd45cf73e6197810287c6b0848bcde0699485c0d7e5a9aca39",
+      "size": 1844
+    },
+    {
+      "path": "raw/unified.log",
+      "sha256": "56781ad31e5fe075b9e9933f745903aab0fa2b5af8871132ef0bf6c15ad7ed8c",
+      "size": 62985
+    }
+  ],
+  "end_utc": "2026-08-18T20:56:52Z",
+  "evidence_class": "OBSERVED",
+  "generated_utc": "2026-08-18T20:56:53.617170+00:00",
+  "manifest_version": "1.0.0",
+  "raw_evidence_mutability_policy": "DO_NOT_MODIFY_AFTER_MANIFEST",
+  "run_id": "20260818T205636Z-control-a-no-chatgpt",
+  "scenario": "control-a-no-chatgpt",
+  "start_utc": "2026-08-18T20:56:36Z"
+}

@@ -1,0 +1,13 @@
+# Default-deny experimental run contents.
+*
+!.gitignore
+
+# Permit run directories so selected artifacts can be re-included.
+!*/
+
+# Version reproducibility metadata and derived evidence.
+!*/manifest.json
+!*/derived/
+!*/derived/**
+
+# Raw host evidence remains excluded by the module-level .gitignore.

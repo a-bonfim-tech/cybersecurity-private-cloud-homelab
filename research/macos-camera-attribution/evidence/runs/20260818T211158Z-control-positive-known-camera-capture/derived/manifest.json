@@ -1,0 +1,15 @@
+{
+  "artifact_class": "DERIVED",
+  "artifacts": [
+    {
+      "path": "derived/timeline.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    }
+  ],
+  "generated_utc": "2026-08-18T21:12:49.440285+00:00",
+  "manifest_version": "1.0.0",
+  "run_id": "20260818T211158Z-control-positive-known-camera-capture",
+  "source_raw_manifest": "manifest.json",
+  "source_raw_manifest_sha256": "8458421bed9c3d9e3592206e0e7f78aa8e4678e46cf8b0579f59664a3cbc076f"
+}
