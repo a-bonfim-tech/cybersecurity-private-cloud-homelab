@@ -81,7 +81,7 @@ class ReplicationAutomationTests(unittest.TestCase):
         )
 
         self.assertIn(
-            """printf '%s\\n' "$run" """,
+            'printf \'%s\\n\' "$run"',
             block,
         )
 
