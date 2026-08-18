@@ -1,0 +1,19 @@
+{
+  "architecture": "arm64",
+  "baseline_commit": "782acaf",
+  "build_version": "25G76",
+  "captured_at_utc": "2026-08-18T22:02:03Z",
+  "cpu_brand": "Apple M2",
+  "filevault_status": "FileVault is On.",
+  "hardware_model": "Mac14,2",
+  "host_id": "d2c70c9a2614",
+  "logical_cpu_count": "8",
+  "memory_bytes": "8589934592",
+  "notes": "Sanitized replication host metadata. No hostname, username, serial number, platform UUID, device identifiers, account identifiers, or network identifiers.",
+  "physical_cpu_count": "8",
+  "platform": "macOS",
+  "product_name": "macOS",
+  "product_version": "26.6.1",
+  "schema_version": 1,
+  "sip_status": "System Integrity Protection status: enabled."
+}

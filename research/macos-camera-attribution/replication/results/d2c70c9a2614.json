@@ -1,0 +1,12 @@
+{
+  "claim_boundary": "Provider stream-related activity only; not direct frame-delivery evidence.",
+  "counts": {
+    "A1": 0,
+    "A2": 0,
+    "B": 31
+  },
+  "host_id": "d2c70c9a2614",
+  "observable": "CMIOExtensionStream",
+  "outcome": "REPLICATED",
+  "schema_version": 1
+}
