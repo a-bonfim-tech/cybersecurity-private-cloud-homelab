@@ -1,0 +1,15 @@
+{
+  "artifact_class": "DERIVED",
+  "artifacts": [
+    {
+      "path": "derived/timeline.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    }
+  ],
+  "generated_utc": "2026-08-18T22:54:44.272343+00:00",
+  "manifest_version": "1.0.0",
+  "run_id": "20260818T225422Z-replication-d2c70c9a2614-a1-idle",
+  "source_raw_manifest": "manifest.json",
+  "source_raw_manifest_sha256": "4ee695bc3a57b86a5af0c35bd50d7b4a2843901cb2ec229a30f891c05fc5c3b5"
+}
