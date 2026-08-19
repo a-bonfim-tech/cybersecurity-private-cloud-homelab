@@ -1,0 +1,10 @@
+{
+  "claim_boundary": "Provider stream-related activity only; not direct frame-delivery evidence.",
+  "execution_id": "20260819T140454Z",
+  "experiment": "quicktime-vs-photo-booth-v2",
+  "failed_condition": "B",
+  "outcome": "ABORTED_CONDITION_INVALID",
+  "reason": "QuickTime movie-recording document not observed",
+  "schema_version": 2,
+  "usable_for_client_discrimination_claim": false
+}
