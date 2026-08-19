@@ -1,0 +1,28 @@
+{
+  "all_active_conditions_positive": true,
+  "all_idle_controls_zero": true,
+  "all_outcomes_replicated": true,
+  "b_count_max": 30,
+  "b_count_mean": 30,
+  "b_count_min": 30,
+  "b_counts": [
+    30,
+    30,
+    30,
+    30
+  ],
+  "claim_boundary": "Provider stream-related activity only; not direct frame-delivery evidence.",
+  "cross_host_reproducibility": "NOT_TESTED",
+  "execution_count": 4,
+  "execution_ids": [
+    "20260818T231902Z",
+    "20260819T051655Z",
+    "20260819T052301Z",
+    "20260819T052929Z"
+  ],
+  "host_id": "d2c70c9a2614",
+  "interpretation": "Repeated same-host association between QuickTime preview condition and CMIOExtensionStream provider activity. This does not establish direct frame delivery or cross-host reproducibility.",
+  "observable": "CMIOExtensionStream",
+  "same_host_repeatability": "SUPPORTED",
+  "schema_version": 1
+}
