@@ -1,0 +1,74 @@
+{
+  "artifacts": [
+    {
+      "path": "raw/application.txt",
+      "sha256": "5167d51b69a57d9f79b925e99e0d2b51e1f079ff162069de25116add3e4137cd",
+      "size": 668
+    },
+    {
+      "path": "raw/network-after.txt",
+      "sha256": "00bc1a17d5c4b03e98c2568cbacb29023f0a3151d393e85525c0d17a9c403619",
+      "size": 20
+    },
+    {
+      "path": "raw/network-before.txt",
+      "sha256": "00bc1a17d5c4b03e98c2568cbacb29023f0a3151d393e85525c0d17a9c403619",
+      "size": 20
+    },
+    {
+      "path": "raw/processes-after.txt",
+      "sha256": "1233b24e8e99e2f4b7c40d610d1b64a789ef0a9e100bcf2bebae8106b5157ec4",
+      "size": 85097
+    },
+    {
+      "path": "raw/processes-before.txt",
+      "sha256": "f1407f6ed73178bcdf9c46b544af9745462568b999bf10548ab22387168ef4bd",
+      "size": 87447
+    },
+    {
+      "path": "raw/run-metadata.txt",
+      "sha256": "0a47d889456e029f4197fccbb345cce257ff2be2662747298810a59f63b64988",
+      "size": 272
+    },
+    {
+      "path": "raw/system.txt",
+      "sha256": "8b58a4f79cb80fc6eb4675fafffb9c8d49cc15611679252e6c3a0ecbebfd7bfb",
+      "size": 245
+    },
+    {
+      "path": "raw/target-pids-after.txt",
+      "sha256": "d3c6ac9fafb61163200a886287bfe703a9b308f9858de43ffacda029ee38861d",
+      "size": 4
+    },
+    {
+      "path": "raw/target-pids-before.txt",
+      "sha256": "d3c6ac9fafb61163200a886287bfe703a9b308f9858de43ffacda029ee38861d",
+      "size": 4
+    },
+    {
+      "path": "raw/tcc-after.txt",
+      "sha256": "c2fbc60929bfe9cd45cf73e6197810287c6b0848bcde0699485c0d7e5a9aca39",
+      "size": 1844
+    },
+    {
+      "path": "raw/tcc-before.txt",
+      "sha256": "c2fbc60929bfe9cd45cf73e6197810287c6b0848bcde0699485c0d7e5a9aca39",
+      "size": 1844
+    },
+    {
+      "path": "raw/unified.log",
+      "sha256": "7a65a2ebafce45b1df47b900c2ee8af97cb86501fef1bf75249026270935ed2d",
+      "size": 358179
+    }
+  ],
+  "control_invalid_reason": null,
+  "control_valid": null,
+  "end_utc": "2026-08-19T05:31:01Z",
+  "evidence_class": "OBSERVED",
+  "generated_utc": "2026-08-19T05:31:02.637099+00:00",
+  "manifest_version": "1.0.0",
+  "raw_evidence_mutability_policy": "DO_NOT_MODIFY_AFTER_MANIFEST",
+  "run_id": "20260819T053041Z-replication-d2c70c9a2614-a2-idle",
+  "scenario": "replication-d2c70c9a2614-a2-idle",
+  "start_utc": "2026-08-19T05:30:41Z"
+}
