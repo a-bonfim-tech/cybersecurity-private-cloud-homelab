@@ -1,0 +1,30 @@
+{
+  "claim_boundary": "Provider stream-related activity only; not direct frame-delivery evidence.",
+  "client_discriminator": null,
+  "conditions": {
+    "A": {
+      "client": "idle",
+      "cmio_count": 7,
+      "photo_booth_pid": "2123",
+      "quicktime_pid": "1645"
+    },
+    "B": {
+      "client": "QuickTime Player",
+      "cmio_count": 0,
+      "photo_booth_pid": "2123",
+      "quicktime_pid": "1645"
+    },
+    "C": {
+      "bundle_id": "com.apple.PhotoBooth",
+      "client": "Photo Booth",
+      "cmio_count": 0,
+      "photo_booth_pid": "2123",
+      "quicktime_pid": "1645"
+    }
+  },
+  "execution_id": "20260819T113929Z",
+  "experiment": "quicktime-vs-photo-booth",
+  "interpretation": "Provider activity may distinguish camera-active conditions from idle. Client discrimination is not established without a directly observed client/provider linkage.",
+  "outcome": "INCONCLUSIVE",
+  "schema_version": 1
+}

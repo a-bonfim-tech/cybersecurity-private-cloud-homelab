@@ -1,0 +1,18 @@
+{
+  "claim_boundary": "Provider stream-related activity only; not direct frame-delivery evidence.",
+  "client_discriminator": null,
+  "execution_id": "20260819T113929Z",
+  "experiment": "quicktime-vs-photo-booth",
+  "experimental_validity": "INVALID_CONDITION_CONTRAST",
+  "original_outcome": "INCONCLUSIVE",
+  "reasons": [
+    "A control contains QuickTime process",
+    "A control contains Photo Booth process",
+    "A control contains CMIOExtensionStream activity",
+    "B QuickTime condition lacks positive CMIO activity",
+    "C Photo Booth condition lacks positive CMIO activity"
+  ],
+  "recommendation": "Retain execution as failed v1 evidence. Do not use it to support or reject client discrimination. Define and freeze experiment v2 with explicit condition gates.",
+  "schema_version": 1,
+  "usable_for_client_discrimination_claim": false
+}
