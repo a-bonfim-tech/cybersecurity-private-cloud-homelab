@@ -56,13 +56,43 @@ def main() -> None:
     reports = []
     for name, expected in EXPECTED.items():
         report = inspect(PCAP_DIR / name)
-        assert report["packet_count"] == expected["packets"]
+        if report["packet_count"] != expected["packets"]:
+            raise ValueError(
+                f"{name}: expected {expected['packets']} packets, "
+                f"got {report['packet_count']}"
+            )
+
         packets = report["packets"]
-        assert all(packet["source"] == "10.10.30.5" for packet in packets)
-        assert all(packet["destination"] == "10.10.20.15" for packet in packets)
-        assert all(packet["destination_port"] in {22, 80, 443, 8080} for packet in packets)
-        assert all(packet["flags"] == expected["flags"] for packet in packets)
-        assert all(packet["seconds"] == 1_700_000_000 for packet in packets)
+
+        checks = (
+            (
+                all(packet["source"] == "10.10.30.5" for packet in packets),
+                "unexpected source address",
+            ),
+            (
+                all(packet["destination"] == "10.10.20.15" for packet in packets),
+                "unexpected destination address",
+            ),
+            (
+                all(
+                    packet["destination_port"] in {22, 80, 443, 8080}
+                    for packet in packets
+                ),
+                "unexpected destination port",
+            ),
+            (
+                all(packet["flags"] == expected["flags"] for packet in packets),
+                "unexpected TCP flags",
+            ),
+            (
+                all(packet["seconds"] == 1_700_000_000 for packet in packets),
+                "unexpected packet timestamp",
+            ),
+        )
+
+        for passed, message in checks:
+            if not passed:
+                raise ValueError(f"{name}: {message}")
         reports.append(report)
     json.dump(reports, sys.stdout, indent=2)
     print()

@@ -14,3 +14,7 @@ crash.*.log
 *.pfx
 secrets/
 .DS_Store
+
+# Python local bytecode
+__pycache__/
+*.py[cod]
