@@ -21,6 +21,7 @@ def count_raw(run: Path) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--host-id", required=True)
+    ap.add_argument("--execution-id", required=True)
     ap.add_argument("--a1", type=Path, required=True)
     ap.add_argument("--b", type=Path, required=True)
     ap.add_argument("--a2", type=Path, required=True)
@@ -49,9 +50,15 @@ def main() -> int:
         outcome = "NOT_REPLICATED"
 
     result = {
-        "schema_version": 1,
+        "schema_version": 2,
+        "execution_id": args.execution_id,
         "host_id": args.host_id,
         "observable": "CMIOExtensionStream",
+        "runs": {
+            "A1": args.a1.name,
+            "B": args.b.name,
+            "A2": args.a2.name,
+        },
         "counts": counts,
         "outcome": outcome,
         "claim_boundary": (

@@ -83,11 +83,13 @@ def expected_outcome(counts: dict[str, int]) -> str:
 def validate_result(
     result_path: Path,
     host_id: str,
+    execution_id: str,
     counts: dict[str, int],
+    runs: dict[str, str],
 ) -> dict:
     result = load_json(result_path)
 
-    if result.get("schema_version") != 1:
+    if result.get("schema_version") != 2:
         fail("unsupported result schema_version")
 
     if result.get("host_id") != host_id:
@@ -96,10 +98,25 @@ def validate_result(
             f"{result.get('host_id')!r} != {host_id!r}"
         )
 
+    if result.get("execution_id") != execution_id:
+        fail(
+            "result execution_id mismatch: "
+            f"{result.get('execution_id')!r} != "
+            f"{execution_id!r}"
+        )
+
     if result.get("observable") != OBSERVABLE:
         fail(
             "unexpected observable: "
             f"{result.get('observable')!r}"
+        )
+
+    stored_runs = result.get("runs")
+
+    if stored_runs != runs:
+        fail(
+            "result run linkage mismatch: "
+            f"stored={stored_runs!r} expected={runs!r}"
         )
 
     stored_counts = result.get("counts")
@@ -195,6 +212,7 @@ def main() -> int:
     )
 
     ap.add_argument("--host-id", required=True)
+    ap.add_argument("--execution-id", required=True)
     ap.add_argument("--a1", type=Path, required=True)
     ap.add_argument("--b", type=Path, required=True)
     ap.add_argument("--a2", type=Path, required=True)
@@ -219,6 +237,12 @@ def main() -> int:
         "A2": count_observable(args.a2),
     }
 
+    runs = {
+        "A1": args.a1.name,
+        "B": args.b.name,
+        "A2": args.a2.name,
+    }
+
     validate_host_metadata(
         args.host,
         args.host_id,
@@ -227,11 +251,14 @@ def main() -> int:
     result = validate_result(
         args.result,
         args.host_id,
+        args.execution_id,
         counts,
+        runs,
     )
 
     print("===== REPLICATION VALIDATION =====")
     print(f"host_id={args.host_id}")
+    print(f"execution_id={args.execution_id}")
     print(f"A1={counts['A1']}")
     print(f"B={counts['B']}")
     print(f"A2={counts['A2']}")
@@ -245,6 +272,8 @@ def main() -> int:
     print("CLAIM_BOUNDARY=PASS")
     print("HOST_METADATA=PASS")
     print("RUN_DISTINCTNESS=PASS")
+    print("RUN_LINKAGE=PASS")
+    print("EXECUTION_ID=PASS")
     print("REPLICATION_VALIDATION=PASS")
 
     return 0

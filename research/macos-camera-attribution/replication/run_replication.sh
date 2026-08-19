@@ -361,9 +361,18 @@ forced_failure "preflight"
 
 HOST_ID="$(derive_host_id)"
 HOST_FILE="$REPL/hosts/${HOST_ID}.json"
-RESULT="$REPL/results/${HOST_ID}.json"
+
+EXECUTION_ID="$(
+    date -u '+%Y%m%dT%H%M%SZ'
+)"
+
+RESULT_DIR="$REPL/results/$HOST_ID"
+mkdir -p "$RESULT_DIR"
+
+RESULT="$RESULT_DIR/${EXECUTION_ID}.json"
 
 printf 'host_id=%s\n' "$HOST_ID"
+printf 'execution_id=%s\n' "$EXECUTION_ID"
 
 if [[ -f "$HOST_FILE" ]]; then
     printf 'host_metadata=existing\n'
@@ -443,6 +452,7 @@ printf '\n===== COMPARISON =====\n'
 
 python3 "$COMPARATOR" \
     --host-id "$HOST_ID" \
+    --execution-id "$EXECUTION_ID" \
     --a1 "$RUN_A1" \
     --b "$RUN_B" \
     --a2 "$RUN_A2" \
@@ -454,6 +464,7 @@ printf '\n===== FINAL REPLICATION VALIDATION =====\n'
 
 python3 "$REPLICATION_VALIDATOR" \
     --host-id "$HOST_ID" \
+    --execution-id "$EXECUTION_ID" \
     --a1 "$RUN_A1" \
     --b "$RUN_B" \
     --a2 "$RUN_A2" \
@@ -464,6 +475,7 @@ forced_failure "final-validation"
 
 printf '\n===== REPLICATION ARTIFACTS =====\n'
 printf 'HOST_ID=%s\n' "$HOST_ID"
+printf 'EXECUTION_ID=%s\n' "$EXECUTION_ID"
 printf 'HOST_FILE=%s\n' "$HOST_FILE"
 printf 'RUN_A1=%s\n' "$RUN_A1"
 printf 'RUN_B=%s\n' "$RUN_B"

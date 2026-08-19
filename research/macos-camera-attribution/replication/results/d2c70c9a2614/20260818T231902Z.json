@@ -1,0 +1,18 @@
+{
+  "claim_boundary": "Provider stream-related activity only; not direct frame-delivery evidence.",
+  "counts": {
+    "A1": 0,
+    "A2": 0,
+    "B": 30
+  },
+  "execution_id": "20260818T231902Z",
+  "host_id": "d2c70c9a2614",
+  "observable": "CMIOExtensionStream",
+  "outcome": "REPLICATED",
+  "runs": {
+    "A1": "20260818T231902Z-replication-d2c70c9a2614-a1-idle",
+    "A2": "20260818T232013Z-replication-d2c70c9a2614-a2-idle",
+    "B": "20260818T231933Z-replication-d2c70c9a2614-b-preview"
+  },
+  "schema_version": 2
+}
