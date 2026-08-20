@@ -13,8 +13,7 @@
 
   <rule id="100002" level="12" frequency="5" timeframe="60">
     <if_matched_sid>100001</if_matched_sid>
-    <same_srcip />
-    <description>CRITICAL: High Frequency SSH Brute-Force / Reconnaissance Attack from one VLAN 30 source</description>
+    <description>CRITICAL: High Frequency SSH Brute-Force / Reconnaissance Attack from VLAN 30</description>
     <mitre>
       <id>T1110.001</id>
     </mitre>

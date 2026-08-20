@@ -132,6 +132,7 @@
       "output_path": "docs/evidence/executions/wazuh/WAZUH-EXEC-001-result.txt",
       "output_sha256": "e3aad38ed46a92ba64be02f0af8a198306cd1e1f3b9e92633bf260a6d6bab067",
       "rule_id": "100010",
+      "rule_path": "docs/evidence/executions/wazuh/local_rules-WAZUH-EXEC-001.xml",
       "rule_sha256": "3d1b4f5d71b31167706bcc0d3abecdd609dbb83846f838b325825b8a07ebe9a3",
       "expected_result": "Rule 100010 level 7 matches the actual Suricata SID 1000001 event through decoder json",
       "actual_result": "Native assertion 100010:7:json returned exit code 0 with MITRE T1046",

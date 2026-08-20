@@ -98,7 +98,19 @@ def validate_manifest(manifest_path: Path) -> tuple[int, int]:
         rule_hash = item.get("rule_sha256")
         if rule_hash is not None:
             rule_id = str(item.get("rule_id", ""))
-            rule_path = RULE_ARTIFACTS.get(rule_id)
+            declared_rule_path = item.get("rule_path")
+            if declared_rule_path is not None:
+                if not isinstance(declared_rule_path, str):
+                    raise ValidationError(
+                        f"{evidence_id}: invalid rule_path"
+                    )
+                rule_path = repository_path(
+                    declared_rule_path,
+                    "rule_path",
+                    evidence_id,
+                )
+            else:
+                rule_path = RULE_ARTIFACTS.get(rule_id)
             if rule_path is None:
                 raise ValidationError(
                     f"{evidence_id}: no deterministic rule artifact for rule_id {rule_id!r}"

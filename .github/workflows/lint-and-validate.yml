@@ -38,6 +38,16 @@ jobs:
           python3 -m json.tool docs/evidence/executions/firewall/firewall-enforcement-summary.json > /dev/null
           python3 -m json.tool docs/evidence/executions/peer-trusted-network/PEER-TRUSTED-NET-EXEC-001-summary.json > /dev/null
 
+      - name: Validate macOS research tests and shell syntax
+        run: |
+          python3 -m unittest discover \
+            -s research/macos-camera-attribution/tests \
+            -p 'test_*.py' \
+            -v
+          while IFS= read -r script; do
+            bash -n "$script"
+          done < <(find . -type f -name '*.sh' -not -path './.git/*' -print)
+
       - name: Validate firewall harness statically
         env:
           SKIP_NFT_IMAGE_PARSE: "1"

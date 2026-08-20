@@ -21,12 +21,16 @@ provider "proxmox" {
 
 variable "proxmox_api_url" {
   type        = string
-  default     = "https://10.10.10.2:8006/api2/json"
-  description = "Proxmox VE API Endpoint"
+  description = "Proxmox VE API endpoint on the restricted management network."
 
   validation {
-    condition     = can(regex("^https://", var.proxmox_api_url))
-    error_message = "The Proxmox API URL must use HTTPS."
+    condition = (
+      can(regex(
+        "^https://10\\.10\\.70\\.([1-9]|1[0-4]):8006/api2/json$",
+        var.proxmox_api_url,
+      ))
+    )
+    error_message = "The Proxmox API URL must use HTTPS and an address in the 10.10.70.0/28 management network."
   }
 }
 

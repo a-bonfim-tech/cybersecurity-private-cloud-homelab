@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+umask 077
 
 SCENARIO="${1:-}"
 DURATION="${2:-10}"
@@ -33,7 +34,11 @@ RUN_ID="${UTC}-${SAFE_SCENARIO}"
 RUN_DIR="$MODULE_ROOT/evidence/runs/$RUN_ID"
 RAW="$RUN_DIR/raw"
 
-mkdir -p "$RAW"
+if ! mkdir "$RUN_DIR"; then
+  echo "refusing existing or non-exclusive run directory: $RUN_DIR" >&2
+  exit 5
+fi
+mkdir "$RAW"
 
 START_UTC="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 START_LOCAL="$(date '+%Y-%m-%d %H:%M:%S')"

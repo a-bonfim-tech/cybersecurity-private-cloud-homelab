@@ -25,6 +25,18 @@ def fail(message: str) -> int:
     return 1
 
 
+def regular_file_inventory(root: Path, exclude: set[Path]) -> set[str]:
+    inventory: set[str] = set()
+    for path in root.rglob("*"):
+        if path in exclude:
+            continue
+        if path.is_symlink():
+            raise ValueError(f"symlinked artifact is not allowed: {path}")
+        if path.is_file():
+            inventory.add(str(path.relative_to(root.parent)))
+    return inventory
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print(f"usage: {sys.argv[0]} <run-directory>", file=sys.stderr)
@@ -44,6 +56,8 @@ def main() -> int:
     artifacts = manifest.get("artifacts")
     if not isinstance(artifacts, list):
         return fail("artifacts must be an array")
+    if not artifacts:
+        return fail("artifacts must not be empty")
 
     seen: set[str] = set()
 
@@ -80,6 +94,18 @@ def main() -> int:
                 f"expected {expected}, got {actual}"
             )
 
+    raw_dir = run_dir / "raw"
+    try:
+        raw_inventory = regular_file_inventory(raw_dir, set())
+    except ValueError as exc:
+        return fail(str(exc))
+    if seen != raw_inventory:
+        return fail(
+            "raw artifact inventory mismatch: "
+            f"manifest_only={sorted(seen - raw_inventory)!r} "
+            f"filesystem_only={sorted(raw_inventory - seen)!r}"
+        )
+
     derived_manifest_path = run_dir / "derived" / "manifest.json"
 
     if derived_manifest_path.exists():
@@ -97,12 +123,24 @@ def main() -> int:
         if expected_raw_manifest_hash != digest(manifest_path):
             return fail("derived manifest references wrong raw manifest hash")
 
-        for item in derived_manifest.get("artifacts", []):
+        derived_artifacts = derived_manifest.get("artifacts")
+        if not isinstance(derived_artifacts, list):
+            return fail("derived artifacts must be an array")
+        if not derived_artifacts:
+            return fail("derived artifacts must not be empty")
+
+        derived_seen: set[str] = set()
+        for item in derived_artifacts:
+            if not isinstance(item, dict):
+                return fail("derived artifact entry is not an object")
             relative = item.get("path")
             expected = item.get("sha256")
 
             if not isinstance(relative, str):
                 return fail("derived artifact path missing")
+            if relative in derived_seen:
+                return fail(f"duplicate derived artifact path: {relative}")
+            derived_seen.add(relative)
 
             if not isinstance(expected, str) or not SHA256_RE.fullmatch(expected):
                 return fail(f"invalid derived SHA-256 for {relative}")
@@ -119,6 +157,20 @@ def main() -> int:
 
             if digest(path) != expected:
                 return fail(f"derived SHA-256 mismatch for {relative}")
+
+        try:
+            derived_inventory = regular_file_inventory(
+                run_dir / "derived",
+                {derived_manifest_path},
+            )
+        except ValueError as exc:
+            return fail(str(exc))
+        if derived_seen != derived_inventory:
+            return fail(
+                "derived artifact inventory mismatch: "
+                f"manifest_only={sorted(derived_seen - derived_inventory)!r} "
+                f"filesystem_only={sorted(derived_inventory - derived_seen)!r}"
+            )
 
     timeline = run_dir / "derived" / "timeline.jsonl"
     if timeline.exists():

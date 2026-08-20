@@ -26,6 +26,16 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" \
 
 cd "$ROOT"
 
+WORKTREE="$(mktemp -d "${TMPDIR:-/tmp}/macos-camera-replication.XXXXXX")"
+rmdir "$WORKTREE"
+
+cleanup() {
+    git -C "$ROOT" worktree remove --force "$WORKTREE" >/dev/null 2>&1 \
+        || true
+}
+
+trap cleanup EXIT INT TERM
+
 printf '===== SECOND-HOST REPLICATION GATE =====\n'
 printf 'repo=%s\n' "$ROOT"
 printf 'reference_host_id=%s\n' "$REFERENCE_HOST_ID"
@@ -47,7 +57,8 @@ printf 'baseline_commit=%s\n' "$observed_baseline"
 
 printf '\n===== INDEPENDENT HOST CHECK =====\n'
 
-git checkout --detach "$PROTOCOL_TAG"
+git worktree add --detach "$WORKTREE" "$PROTOCOL_TAG" >/dev/null
+cd "$WORKTREE"
 
 REFERENCE_HOST_ID="$REFERENCE_HOST_ID" \
     research/macos-camera-attribution/replication/check_cross_host.sh

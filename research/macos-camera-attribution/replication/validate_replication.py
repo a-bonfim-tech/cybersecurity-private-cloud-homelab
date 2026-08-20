@@ -177,10 +177,20 @@ def validate_host_metadata(
         "altdsid",
     }
 
-    present = {
-        str(key).lower()
-        for key in data
-    } & prohibited_keys
+    def keys(value: object) -> set[str]:
+        if isinstance(value, dict):
+            nested = {str(key).lower() for key in value}
+            for item in value.values():
+                nested.update(keys(item))
+            return nested
+        if isinstance(value, list):
+            nested: set[str] = set()
+            for item in value:
+                nested.update(keys(item))
+            return nested
+        return set()
+
+    present = keys(data) & prohibited_keys
 
     if present:
         fail(
