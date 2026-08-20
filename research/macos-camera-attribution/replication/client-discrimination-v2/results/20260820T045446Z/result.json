@@ -1,0 +1,30 @@
+{
+  "claim_boundary": "Provider stream-related activity only; not direct frame-delivery evidence.",
+  "client_discriminator": null,
+  "conditions": {
+    "A": {
+      "cmio_count": 0,
+      "gate": "PASS"
+    },
+    "B": {
+      "client": "QuickTime Player",
+      "cmio_count": 5,
+      "gate": "PASS",
+      "quicktime_pid": "4019"
+    },
+    "C": {
+      "bundle_id": "com.apple.PhotoBooth",
+      "client": "Photo Booth",
+      "cmio_count": 7,
+      "gate": "PASS",
+      "photo_booth_pid": "4172"
+    }
+  },
+  "execution_id": "20260820T045446Z",
+  "experiment": "quicktime-vs-photo-booth-v2",
+  "interpretation": "A valid idle/QuickTime/Photo Booth provider contrast was observed. No directly observed client/provider discriminator was established.",
+  "outcome": "PROVIDER_ONLY",
+  "schema_version": 2,
+  "usable_for_client_discrimination_claim": false,
+  "valid_condition_contrast": true
+}

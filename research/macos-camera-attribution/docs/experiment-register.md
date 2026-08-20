@@ -15,3 +15,21 @@ comparative inference for the condition it failed to satisfy.
 
 No absence of camera events is interpreted as proof that camera-related code
 did not execute. Unified Log observability is incomplete by design.
+
+## Client-discrimination experiments
+
+| Protocol | Retained execution state | Scientific disposition |
+|---|---|---|
+| v1 | `20260819T113929Z` | `INVALID_CONDITION_CONTRAST`; unusable to support or reject client discrimination |
+| v2 historical attempts | Ten retained executions from `20260819T120855Z` through `20260819T210445Z` | All `ABORTED_CONDITION_INVALID`; operational failure evidence only |
+| v2 valid contrast | `20260820T045446Z` | `PROVIDER_ONLY`; A/B/C gates passed, provider activity observed for B and C, no direct client discriminator |
+
+The v2 protocol and runner are frozen at tags
+`macos-camera-client-discrimination-experiment-v2` and
+`macos-camera-client-discrimination-runner-v2`. An abort is not
+`INCONCLUSIVE`, `PROVIDER_ONLY`, or a client-discrimination result. The valid
+v2 result supports only a provider-level contrast and has
+`usable_for_client_discrimination_claim=false`.
+
+Mandatory boundary: **Provider stream-related activity only; not direct
+frame-delivery evidence.**

@@ -56,8 +56,23 @@ Raw workstation evidence is not committed automatically.
 
 ## Current conclusion
 
-Camera-provider interaction and hardware initialization must remain
-semantically distinct from demonstrated frame consumption.
+Repeated same-host A1/B/A2 executions support an association between QuickTime
+movie-preview activation and `CMIOExtensionStream` provider activity on one
+physical Mac. Cross-host reproducibility remains `NOT_TESTED`.
 
-The decisive next experiment is comparison against a known positive-control
-application that actually consumes camera frames.
+The v1 QuickTime-versus-Photo Booth execution has an invalid condition
+contrast. Ten retained historical v2 attempts are
+`ABORTED_CONDITION_INVALID`; an abort is operational evidence, not a
+discrimination outcome. A later v2 execution (`20260820T045446Z`) passed all
+three condition gates and established provider activity under both active
+clients, but no direct client/provider discriminator. Its frozen
+classification is `PROVIDER_ONLY`, and it is not usable to claim client
+discrimination.
+
+Camera-provider interaction and hardware initialization remain semantically
+distinct from demonstrated frame consumption. The mandatory claim boundary is:
+
+> Provider stream-related activity only; not direct frame-delivery evidence.
+
+See the [experiment register](docs/experiment-register.md) and
+[cross-host protocol](replication/docs/cross-host-protocol.md).

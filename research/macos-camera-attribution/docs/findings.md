@@ -76,3 +76,23 @@ Network activity alone cannot establish transmission of camera-derived data.
 
 A stronger conclusion requires evidence connecting frame acquisition to the
 target process and separately characterizing corresponding network transfer.
+
+---
+
+## MACCAM-005 — QuickTime versus Photo Booth provider contrast
+
+**Status:** CLOSED AT PROVIDER-ONLY BOUNDARY<br>
+**Evidence classification:** OBSERVED<br>
+**Confidence:** HIGH for the gated provider observations.
+
+Execution `20260820T045446Z` passed the frozen v2 gates with idle provider
+count `0`, QuickTime provider count `5`, an idle B-to-C transition, and Photo
+Booth provider count `7`.
+
+This is a valid A/B/C provider-level contrast. The retained evidence contains
+no direct, repeatable client/provider discriminator separating QuickTime from
+Photo Booth. The final classification is `PROVIDER_ONLY`, not
+`CLIENT_DISCRIMINATION_SUPPORTED`.
+
+Mandatory boundary: **Provider stream-related activity only; not direct
+frame-delivery evidence.**
