@@ -151,6 +151,72 @@ interpreted as certification or continuous production effectiveness.
 * **Native FreeBSD PF Segmentation:** [executed evidence](docs/evidence/executions/freebsd-pf-segmentation/README.md) & [`FBSD-PF-SEG-EXEC-001`](docs/evidence/executions/freebsd-pf-segmentation/FBSD-PF-SEG-EXEC-001-summary.json)
 * **Peer-Trusted Network Gate:** [`RUNBOOK-002`](docs/evidence/purple-team-runs/RUNBOOK-002-peer-trusted-network-persistence.md) & [executed evidence](docs/evidence/executions/peer-trusted-network/README.md)
 * **Infrastructure-as-Code:** [`main.tf`](iac/terraform/main.tf)
+* **macOS Security Research:** [camera-attribution module](research/macos-camera-attribution/README.md), including frozen protocols, same-host replication, failed-condition evidence and explicit scientific claim limits
+
+---
+
+## Detection and Validation Pipeline
+
+```text
+synthetic PCAP -> Suricata rule -> retained EVE alert -> Wazuh rule test
+       |                |                   |                 |
+ negative controls   offline replay      SHA-256 lineage   native logtest
+```
+
+The stages are deliberately separable. The retained evidence proves bounded
+offline rule behavior; it does not prove a continuously operating sensor,
+manager ingestion, alert persistence or a unified live packet path.
+
+Repository validation covers Terraform formatting and syntax, JSON and XML,
+deterministic PCAP generation, evidence-manifest integrity, Suricata positive
+and negative controls, Wazuh rule evaluation, shell syntax and the macOS
+research unit suite. The camera module currently has 61 local unit tests; its
+raw workstation evidence remains private and excluded from Git.
+
+## Research Findings and Reproducibility
+
+- QuickTime preview provider activity is repeatable on one host under the
+  frozen A1/B/A2 method.
+- Cross-host reproducibility is `NOT_TESTED`; the frozen second-host protocol
+  and isolated-worktree runner are provided for an independent Mac.
+- The v1 client-discrimination execution is invalid for condition contrast.
+- Ten historical v2 attempts are operational abort evidence. Execution
+  `20260820T045446Z` established a valid idle/QuickTime/Photo Booth provider
+  contrast and is classified `PROVIDER_ONLY`; no direct client discriminator
+  was observed.
+- Provider stream-related activity is not direct frame-delivery evidence.
+
+See the [experiment register](research/macos-camera-attribution/docs/experiment-register.md),
+[replication conclusion](research/macos-camera-attribution/replication/docs/conclusion.md)
+and [limitations](research/macos-camera-attribution/docs/limitations.md).
+
+## Repository Map
+
+| Path | Purpose |
+| :--- | :--- |
+| `docs/architecture`, `docs/adr` | Trust boundaries, topology and decisions |
+| `iac/terraform` | Configuration-only Proxmox/pfSense target IaC |
+| `detections` | Suricata and Wazuh detection content |
+| `tools` | Deterministic validation and isolated firewall harnesses |
+| `docs/evidence` | Minimized retained execution evidence and lineage |
+| `research/macos-camera-attribution` | Versioned macOS experiment, replication and validation artifacts |
+
+## Skills Demonstrated
+
+Security architecture, network segmentation, detection engineering, threat
+modeling, evidence lineage, infrastructure as code, negative-control testing,
+privacy-aware acquisition, scientific versioning, failure retention and
+claim calibration.
+
+## Known Limitations
+
+- No Proxmox or pfSense execution is retained.
+- No continuously operating PF-to-Suricata-to-Wazuh pipeline is evidenced.
+- Detection coverage is bounded to the documented synthetic scenarios.
+- Camera observations are provider-level; client discrimination, frame
+  delivery and cross-host reproducibility are not established.
+- CI tooling obtained from the hosted Ubuntu package repositories is mutable
+  upstream dependency state and should not be treated as hermetic provenance.
 
 ---
 
