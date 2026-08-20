@@ -11,6 +11,7 @@
 > synthetic detection-engineering scenarios.
 
 - Architecture: [federated design](docs/adr/ADR-001-federated-architecture.md)
+- Recruiter overview: [2–5 minute technical brief](docs/recruiter-brief.md)
 - Current security model: [native PF segmentation policy](docs/governance/current-segmentation-policy.md)
 - Reference security model: [synthetic nftables policy](docs/governance/firewall-policy.md)
 - Governance: [BSI and ISO/IEC control mapping](docs/governance/bsi-iso-mapping.md)
