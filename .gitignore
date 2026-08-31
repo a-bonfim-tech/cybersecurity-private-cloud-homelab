@@ -14,3 +14,7 @@ crash.*.log
 *.pfx
 secrets/
 .DS_Store
+
+# Local Python bytecode produced by offline validation
+__pycache__/
+*.py[cod]
